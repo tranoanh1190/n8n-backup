@@ -1,0 +1,294 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-27T12:59:19.829Z",
+  "id": "V9zDJULKL8MSR8Zw",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "đặt lịch",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -360,
+        -20
+      ],
+      "id": "500289eb-bd40-4b21-87fb-32183e4d0dd2",
+      "name": "Telegram Trigger",
+      "webhookId": "f1a3e69c-5738-4c0f-92ea-48c234f9e133",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "22341aca-e4ff-4239-9577-4a48decd031e"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -140,
+        -20
+      ],
+      "id": "2cf36412-3ba4-4c75-bbb7-e748a10b3ed3",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d2e88184-a7eb-4400-ab23-6d028f61938d",
+              "name": "",
+              "value": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        80,
+        -20
+      ],
+      "id": "975dbe0b-c4c3-4c42-8815-1b5176853b42",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {
+          "systemMessage": "=Bạn là một trợ lý chuyên đặt lịch Google Calendar.\n\nKhi người dùng nhắn tin, bạn cần phân tích nội dung họ yêu cầu và trích xuất ra:\n- Tiêu đề sự kiện (summary), ví dụ: \"Họp team\", \"Gặp khách hàng\",...\n- Ngày giờ bắt đầu (startTime), ví dụ: \"3 giờ chiều mai\", \"9h sáng thứ 2\",...\n- Ngày giờ kết thúc (endTime). Nếu người dùng không nêu, hãy mặc định kết thúc sau 1 giờ kể từ startTime.\n- Mô tả sự kiện (description) nếu có thêm.\n\nNếu người dùng yêu cầu \"xóa lịch\", hãy phân tích:\n- Tên sự kiện (summary) hoặc\n- Ngày giờ bắt đầu (startTime),\nsau đó trích xuất để tìm và xóa lịch tương ứng.\n\nLưu ý:\n- Ngày hôm nay là {{ $now }}.\n- Múi giờ là \"GMT+7\" (giờ Việt Nam).\n- Nếu người dùng chỉ ghi giờ mà không ghi ngày, hãy hiểu là họ đang nói về ngày hôm nay.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        300,
+        -20
+      ],
+      "id": "0880aada-f687-450e-b3c0-a467e69045f1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        60,
+        240
+      ],
+      "id": "db524dae-89b1-4e9a-a732-e5242048aedd",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_Công"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.message_id }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        220,
+        240
+      ],
+      "id": "b9beeda4-0548-4d33-b5d9-bda48d33848a",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        -20
+      ],
+      "id": "25ce5069-9a2f-4fad-b12e-189efd9424e3",
+      "name": "Telegram",
+      "webhookId": "f857f42b-e31a-41ff-9351-5f211c2394ee",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "congntph49886@gmail.com",
+          "mode": "list",
+          "cachedResultName": "congntph49886@gmail.com"
+        },
+        "start": "={{ $fromAI('startTime') }}",
+        "end": "={{ $fromAI('endTime') }}",
+        "additionalFields": {
+          "description": "={{$fromAI('description')}}",
+          "summary": "={{$fromAI('summary')}}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        620,
+        280
+      ],
+      "id": "cf6c62e7-fe0e-4888-9192-155422f496bf",
+      "name": "create",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "NTAkx69lBjUfv6dt",
+          "name": "Google Calendar account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-01T08:32:39.126Z",
+  "versionId": "cd4812b6-b5e3-4cd3-8601-295c0b782793"
+}
