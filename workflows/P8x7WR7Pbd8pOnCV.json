@@ -1,0 +1,742 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ClearAllRows": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Switch_",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UpdateSheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReadSheetTool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateSheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch_": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-26T09:25:01.633Z",
+  "id": "P8x7WR7Pbd8pOnCV",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Fix",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -260,
+        100
+      ],
+      "id": "2392ae62-cf4b-41be-9c2a-969614441ae9",
+      "name": "Telegram Trigger",
+      "webhookId": "f328d2ba-dda8-44a3-a317-c22d9a6644b0",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "fe38a285-79c5-4682-9854-cef7c0ebbf0d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -400,
+        -100
+      ],
+      "id": "db81fb2e-0a62-44fe-ab9f-af8b7ae8ab7d",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4d653a71-2a0a-4739-90f7-1886b5e3f77c",
+              "name": "Text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -120,
+        -100
+      ],
+      "id": "cf8e106f-061b-4a8e-8117-2504f62a98ae",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Switch').item.json.message.chat.id }}",
+        "text": "={{ $('AI Agent').item.json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        -260
+      ],
+      "id": "ac28726c-76ae-4e8e-a3b8-b4a48ffe69b2",
+      "name": "Telegram",
+      "webhookId": "376e2b9d-c983-4de1-8b0a-22a14b9ba72a",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        180,
+        120
+      ],
+      "id": "431c3f42-b991-42a6-9f78-9c73fbe866f0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sHrgzdSLJyYNIBzS",
+          "name": "Gemini API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE",
+          "mode": "list",
+          "cachedResultName": "BG1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Trang tính1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE/edit#gid=0"
+        },
+        "clear": "specificRows",
+        "startIndex": 2,
+        "rowsToDelete": 100
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        340,
+        120
+      ],
+      "id": "908a12c6-b8ba-458a-9741-449ba99a8a7f",
+      "name": "ClearAllRows",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Text }}",
+        "options": {
+          "systemMessage": "=\n\nBạn là một trợ lý cá nhân thông minh.\n\n## 🎯 **Nhiệm vụ**\n\nTiếp nhận yêu cầu từ khách hàng và thực hiện theo **quy trình xử lý báo giá**, sau đó trả về kết quả dưới dạng **mảng JSON**, được dùng cho bước xử lý tiếp theo (ví dụ: ghi vào Google Sheet đích).\n\n---\n\n## 🛠️ **QUY TRÌNH XỬ LÝ YÊU CẦU**\n\n### ✅ Nếu khách hàng yêu cầu **báo giá một hoặc nhiều sản phẩm cụ thể**:\n\n1. **Thực hiện hành động `ClearAllRows` (chỉ 1 lần duy nhất)**.\n2. **Sử dụng `ReadSheetsTool` để tìm kiếm dữ liệu từ file Google Sheets nguồn**.\n3. **Tìm theo cơ chế gần đúng (fuzzy search)** — khớp một phần hoặc gần giống tên sản phẩm khách đưa ra.\n4. Với mỗi sản phẩm:\n\n   * Nếu tìm thấy: Thêm thông tin vào danh sách kết quả (JSON).\n   * Nếu **không tìm thấy**: Ghi vào danh sách JSON theo định dạng lỗi sản phẩm.\n\n---\n\n### ✅ Nếu khách hàng yêu cầu **báo giá toàn bộ sản phẩm**:\n\n1. Thực hiện `ClearAllRows`.\n2. Dùng `ReadSheetsTool` để lấy toàn bộ dữ liệu sản phẩm từ Google Sheets nguồn.\n3. Trả về toàn bộ dữ liệu dưới dạng JSON theo mẫu.\n\n---\n\n## 📤 **YÊU CẦU ĐẦU RA (OUTPUT FORMAT)**\n\nTrả kết quả dưới dạng JSON **duy nhất**, đúng mẫu sau:\n\n```json\n[\n  {\n    \"partNumber\": \"248-7865\",\n    \"name\": \"Tên sản phẩm A\",\n    \"channel\": \"Kênh\",\n    \"priceOnWebsite\": \"3089,74\",\n    \"listPrice\": \"114.800.000\",\n    \"description\": \"Mô tả sản phẩm A\",\n    \"image\": \"=IMAGE(\\\"https://link.to/image.jpg\\\"; 1)\"\n  },\n  {\n    \"name\": \"Tên không tìm thấy\",\n    \"note\": \"Không tìm thấy sản phẩm: Tên không tìm thấy\"\n  }\n]\n```\n\n**Lưu ý về cột \"image\":**\n\n* Nếu trường hình ảnh đã có dạng `=IMAGE(\"...\"; 1)`, giữ nguyên.\n* Nếu chỉ là URL, tự động chuyển thành dạng `=IMAGE(\"URL\"; 1)`.\n\n---\n\n## ⚠️ **GHI CHÚ QUAN TRỌNG**\n\n* `ClearAllRows` chỉ gọi **một lần** trong mỗi phiên xử lý yêu cầu của khách hàng.\n* Không gửi JSON này trực tiếp cho khách hàng.\n* Nếu khách hàng không nói đến sản phẩm hoặc báo giá, hãy **trả lời đúng như một trợ lý thông thường** (không thực hiện quy trình báo giá).\n* Đảm bảo dữ liệu JSON **luôn có định dạng hợp lệ** để dùng cho các công cụ tự động.\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        220,
+        -100
+      ],
+      "id": "dec1c780-253a-417b-9102-895f40aafa93",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "f9497fa2-8af5-4de7-bba0-6e04dd2d1ad9",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawText = $input.first().json.output;\n\n// Bước 1: Làm sạch chuỗi nếu có bọc markdown kiểu ```json\nconst cleanedRawText = rawText\n  .replace(/^```json\\s*/i, '')\n  .replace(/\\s*```$/i, '')\n  .trim();\n\nconsole.log(\"STEP 1 - CLEANED TEXT:\", cleanedRawText);\n\nlet parsed;\n\ntry {\n  // Bước 2: Parse lần đầu\n  let intermediate = JSON.parse(cleanedRawText);\n\n  // Nếu intermediate vẫn là chuỗi => parse lần 2\n  if (typeof intermediate === 'string') {\n    intermediate = JSON.parse(intermediate);\n  }\n\n  // Kiểm tra đầu ra phải là array\n  if (!Array.isArray(intermediate)) {\n    throw new Error(\"Dữ liệu sau khi parse không phải là mảng.\");\n  }\n\n  console.log(\"STEP 2 - PARSED ARRAY:\", intermediate);\n\n  // Trả về array of objects\n  return intermediate;\n\n} catch (error) {\n  throw new Error(\"Không thể parse JSON đầu vào: \" + error.message);\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        60
+      ],
+      "id": "f433e189-5c55-48b0-83ca-1e904e8a103c",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1P2ORZXvN2YNNczhLL9HA0dvKKXcSYvkB8Py5Vee3gEY",
+          "mode": "list",
+          "cachedResultName": "VEX price list Apr 01",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P2ORZXvN2YNNczhLL9HA0dvKKXcSYvkB8Py5Vee3gEY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1658196720,
+          "mode": "list",
+          "cachedResultName": "123",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P2ORZXvN2YNNczhLL9HA0dvKKXcSYvkB8Py5Vee3gEY/edit#gid=1658196720"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        120
+      ],
+      "id": "1a730464-e866-450f-b28a-7f0cd37f14d6",
+      "name": "ReadSheetTool",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE",
+          "mode": "list",
+          "cachedResultName": "BG1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Trang tính1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Part Number": "={{ $json.partNumber }}",
+            "Name": "={{ $json.name }}",
+            "Channel": "={{ $json.channel }}",
+            "Price on website": "={{ $json.priceOnWebsite }}",
+            "List price": "={{ $json.listPrice }}",
+            "Description": "={{ $json.description }}",
+            "Image": "={{ $json.image }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Part Number",
+              "displayName": "Part Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Channel",
+              "displayName": "Channel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Price on website",
+              "displayName": "Price on website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "List price",
+              "displayName": "List price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image",
+              "displayName": "Image",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1340,
+        120
+      ],
+      "id": "46bf326e-4704-4de2-b877-d357a09db0d1",
+      "name": "UpdateSheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output }}",
+                    "rightValue": "json",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notContains"
+                    },
+                    "id": "3dd68714-3ca3-43ec-a037-59c9d2f6ed11"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a50d62f5-4656-4f06-88f2-b308a8bf3849",
+                    "leftValue": "={{ $json.output }}",
+                    "rightValue": "json",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "JSON"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        640,
+        -100
+      ],
+      "id": "d7bee0a7-995b-49fa-aeb4-4b62fce4011a",
+      "name": "Switch_"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c80c526c-39ad-4b57-b040-3781b3f18a2a",
+              "leftValue": "={{$itemIndex}}",
+              "rightValue": "0",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1340,
+        -100
+      ],
+      "id": "ae74c283-9609-42af-aba2-6d9372230d03",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dbcd183a-cae7-47db-af0e-699dc746eeda",
+              "name": "output",
+              "value": "Xem báo giá tại link sau:  https://docs.google.com/spreadsheets/d/1VVVV7NwEMlZd6ZT4rl35avOqd-mHFHONDRu4s3VgMvE/edit?gid=0#gid=0",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1560,
+        -200
+      ],
+      "id": "1ad184c7-be4f-4b4b-8ac8-e1c9edf680d7",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Switch').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1620,
+        120
+      ],
+      "id": "1089c6ee-2b8a-4593-9073-21ca69e9f486",
+      "name": "Telegram1",
+      "webhookId": "376e2b9d-c983-4de1-8b0a-22a14b9ba72a",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Xử lý đầu vào cho AI Agent",
+        "height": 460,
+        "width": 500,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -160
+      ],
+      "id": "8c2b1fb7-0531-436f-b98c-c68db80816d3",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Vòng lặp thêm các row data",
+        "height": 480,
+        "width": 480,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -160
+      ],
+      "id": "da98f89d-c8cf-429d-b61c-2bff15d13213",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## AI Agent xử lý yêu cầu",
+        "height": 460,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        120,
+        -160
+      ],
+      "id": "b20879eb-bb49-4dc9-ad39-acebe3c69090",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-20T08:19:17.000Z",
+  "versionId": "502a8915-a109-4e9f-a51e-864f0afc3804"
+}
