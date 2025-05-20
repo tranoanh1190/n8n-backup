@@ -1,0 +1,66 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Baserow API(Phong)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-26T07:42:43.207Z",
+  "id": "RJjACVg1CMfiwYYd",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Test 1",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9a291946-95ef-4d43-8306-0e8485177047",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "databaseId": 217185,
+        "tableId": 519987,
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "3c641822-6cfb-4e6f-9133-04edfde90707",
+      "name": "Baserow API(Phong)",
+      "credentials": {
+        "baserowApi": {
+          "id": "SWSJh1JJd92RlD08",
+          "name": "Baserow API(Phong)"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-29T06:55:21.369Z",
+  "versionId": "a8caca54-dee3-4364-a141-aa06cb5b7d51"
+}
