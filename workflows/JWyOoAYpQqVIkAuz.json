@@ -1,0 +1,245 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-05T02:01:46.762Z",
+  "id": "JWyOoAYpQqVIkAuz",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Loop",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "f61b0967-7b6b-4a4c-82ce-32d887b88df4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        -20
+      ],
+      "id": "0fb195bb-e3ec-4e1a-b3f9-320e9d2d6267",
+      "name": "Webhook",
+      "webhookId": "f61b0967-7b6b-4a4c-82ce-32d887b88df4"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -40,
+        -20
+      ],
+      "id": "5944cd67-eb0d-49d9-83e8-f0040282f3ce",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Trang tính1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Tên sản phấm": "={{ $('Webhook').item.json.name }}",
+            "Số lượng": "={{ $('Webhook').item.json.price }}",
+            "Giá": "={{ $('Webhook').item.json.price }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Tên sản phấm",
+              "displayName": "Tên sản phấm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Số lượng",
+              "displayName": "Số lượng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Giá",
+              "displayName": "Giá",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        320,
+        80
+      ],
+      "id": "73a1aa34-c32a-4cd6-8792-4281e2d2c261",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=6185573938",
+        "text": "=ok",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        -100
+      ],
+      "id": "cdb6bce4-4584-4450-8d2d-ba55451db73f",
+      "name": "Telegram",
+      "webhookId": "376e2b9d-c983-4de1-8b0a-22a14b9ba72a",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "236b67d8-d617-4ccc-8397-d8729713f0e8",
+              "name": "loopIndex:",
+              "value": "={{$index}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        540,
+        80
+      ],
+      "id": "5685782d-c2be-4cd8-918d-da676de762a4",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "name": "Robot giáo dục STEM mBot",
+          "price": 2380000
+        }
+      },
+      {
+        "json": {
+          "name": "Robot giáo dục STEM mBot",
+          "price": 2380000
+        }
+      },
+      {
+        "json": {
+          "name": "Robot giáo dục STEM mBot",
+          "price": 2380000
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-05T05:34:49.907Z",
+  "versionId": "65e09f83-f26d-481c-849a-7962be7a8a33"
+}
