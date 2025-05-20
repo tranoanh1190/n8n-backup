@@ -1,0 +1,529 @@
+{
+  "active": false,
+  "connections": {
+    "Zalo User Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Join Links": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Join Links",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Lấy links ảnh theo key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Interact": {
+      "main": [
+        [
+          {
+            "node": "Redis2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tách lấy keys": {
+      "main": [
+        [
+          {
+            "node": "Chia nhỏ keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chia nhỏ keys": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger mỗi 10s": {
+      "main": [
+        [
+          {
+            "node": "Quét hết keys trong Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quét hết keys trong Redis": {
+      "main": [
+        [
+          {
+            "node": "Tách lấy keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lấy links ảnh theo key": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-26T10:08:20.876Z",
+  "id": "O22laSWH8HmKSJn1",
+  "isArchived": false,
+  "meta": null,
+  "name": "Gop nhieu anh gui 1 lan",
+  "nodes": [
+    {
+      "parameters": {
+        "events": [
+          "message",
+          "group_event",
+          "reaction",
+          "undo"
+        ]
+      },
+      "type": "n8n-nodes-zalo-user.zaloUser",
+      "typeVersion": 2,
+      "position": [
+        -820,
+        60
+      ],
+      "id": "bee61d72-8639-45c3-bf13-40369bc4a81b",
+      "name": "Zalo User Trigger",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "Wk9ZqRm4kK8r2NGZ",
+          "name": "Zalo Oanh Tran Land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=photos:{{ $('Zalo User Trigger').item.json.data.uidFrom }}:{{ $('Zalo User Trigger').item.json.data.idTo }}",
+        "messageData": "={{ $('Zalo User Trigger').item.json.data.content.href }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4e8ef65f-b2e2-4aa4-967c-8a06293321c2",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "CQ0n1m3WmXNCZqvC",
+          "name": "Redis Upstash"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bbb00820-89ad-45c2-804e-68600080023c",
+              "name": "attachments",
+              "value": "={{ $json[\"hrefs\"].join(\",\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        300
+      ],
+      "id": "62ed2e6b-363e-4b8e-acbc-39c42391264f",
+      "name": "Join Links"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "db07f26b-41bd-4b25-bbd3-920db812e9d0",
+              "leftValue": "={{ $json.isSelf }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -600,
+        60
+      ],
+      "id": "c8e655e5-5ad0-48fe-a8d5-d633075ea075",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Zalo User Trigger').item.json.data.msgType }}",
+                    "rightValue": "webchat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "5b1c0e85-10a8-4218-b3c6-a686da12ee18"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "80f1068c-8456-4d16-9b90-42bb62c6092a",
+                    "leftValue": "={{ $('Zalo User Trigger').item.json.data.msgType }}",
+                    "rightValue": "chat.photo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "photo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cce79459-28c5-4ae8-8a4d-c0a6b28113a0",
+                    "leftValue": "={{ $('Zalo User Trigger').item.json.data.msgType }}",
+                    "rightValue": " share.file",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -380,
+        20
+      ],
+      "id": "f2abb6a1-26b1-4207-bc8e-8b12261034c5",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5fcbb110-700e-4911-bfd7-5bb22748830a",
+              "leftValue": "={{ $json.hrefs }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        300,
+        300
+      ],
+      "id": "82bc2d47-2b3b-4622-803d-2baca485d151",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        220,
+        540
+      ],
+      "id": "6c955233-2d13-4e28-bad2-761a9d922010",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Loop Over Items1').item.json.keys }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        960,
+        300
+      ],
+      "id": "eae691e8-eca4-48cd-915d-02d602ce03a9",
+      "name": "Redis2"
+    },
+    {
+      "parameters": {
+        "threadId": "500643570473432609",
+        "message": "=",
+        "attachmentsUrls": "={{ $json.attachments }}"
+      },
+      "type": "n8n-nodes-zalo-user.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        740,
+        300
+      ],
+      "id": "ca25d130-385a-42ee-9b2a-199cc55c1ae9",
+      "name": "Zalo User Interact"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d6cfe4a0-f41f-4065-8218-61dda0f5b30e",
+              "name": "keys",
+              "value": "={{ Object.keys($json) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -380,
+        480
+      ],
+      "id": "035548d4-23a9-4352-8ff7-135874c646b4",
+      "name": "Tách lấy keys"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "keys",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        480
+      ],
+      "id": "620f8db0-faef-46bd-8ba1-a236be34b2f9",
+      "name": "Chia nhỏ keys"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -820,
+        480
+      ],
+      "id": "ceb8b0c3-25be-49c4-bf31-bfbe110cd3f9",
+      "name": "Trigger mỗi 10s"
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "photos:*"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        480
+      ],
+      "id": "2af456b8-3a19-45dc-a938-660d0f411f2d",
+      "name": "Quét hết keys trong Redis"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "hrefs",
+        "key": "={{ $json.keys }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        80,
+        300
+      ],
+      "id": "ca9bb94f-1f96-444e-88d9-44afa381e970",
+      "name": "Lấy links ảnh theo key"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-27T15:48:08.758Z",
+  "versionId": "60d4cb02-3922-47c6-ae7c-f6ab4e29036a"
+}
