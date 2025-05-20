@@ -1,0 +1,597 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-19T03:57:19.491Z",
+  "id": "OardVy4G3o3YEl6m",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -680,
+        160
+      ],
+      "id": "83b0ea38-1fec-4757-a41c-5291026b87e5",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appzllXVWqdYHx5Kl",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://airtable.com/appzllXVWqdYHx5Kl"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl82wGF0J75O7V8G",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appzllXVWqdYHx5Kl/tbl82wGF0J75O7V8G"
+        },
+        "filterByFormula": "={ID}={{ $json.JSON.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -220,
+        140
+      ],
+      "id": "818be5bb-c3d3-48f0-b6e8-fca4be86a6ab",
+      "name": "Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "pOe2dBqL0iS4vw7p",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Bạn là một AI chuyên về robot, bạn sẽ viết nội dung về robot dành cho mọi người và đăng tải lên Facebook. Bạn hãy viết cho tôi một bài Facebook chia sẽ về chủ đề: {{ $json['Chủ đề'] }} bao gồm nội dung: {{ $json['Nội dung chính'] }} \nChú ý: \n- Trả ra kết quả bằng tiếng Việt\n+ Title: 1 câu tiêu đề  hấp dẫn và thu hút sự chú ý của người đọc, bạn hãy chọn một câu ngắn gọn, dễ hiểu và liên quan đến nội dung chính. \n+ Content: 1 đoạn nội dung chi tiết nói về chủ đề đó, nội dung đầy đủ, kết hợp các icon ở vị trí hợp lý và tránh lạm dụng.\nFormat nội dung cho người dùng dễ nhìn.\nKết hợp thêm các icon để làm bài viết sinh động hơn, tạo cảm giác gần gũi cho người đọc. \nkhông sử dụng các ký tự đặc biệt như dấu \"#\", \"*\".\nBên dưới sẽ có các thẻ được gắn liên quan đến chủ đề và nội dung, khi gắn thẻ hiển thị thẻ màu xanh và người dùng có thể click chuột vào được.Mỗi thẻ xuống dòng cho đẹp và dễ nhìn.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        0,
+        20
+      ],
+      "id": "2ce55797-4027-4db5-b4c4-c06c5945e37b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        0,
+        320
+      ],
+      "id": "329ac2a5-e54f-4134-91e2-21717284dd1a",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sHrgzdSLJyYNIBzS",
+          "name": "Gemini API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[1].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content:\")[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        820,
+        -220
+      ],
+      "id": "5e579303-fd8c-46aa-9131-6b107ee60e3e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        -220
+      ],
+      "id": "83ec8629-f5c1-4d58-8691-d510a7d3e625",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v20.0",
+        "node": "me",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $json.title }}\n\n\n{{ $json.content }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        -200
+      ],
+      "id": "95fc4274-4263-42b6-b52f-6e0b27484409",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "pQRZPk9l6VCkeXHm",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "baiviet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nội dung bài viết": "={{ $('Code2').item.json.content }}",
+            "Tiêu đề bài viết": "={{ $('Code2').item.json.title }}",
+            "Ngày đăng": "={{ $json.postDate }}",
+            "Link bài viết": "=https://www.facebook.com/61566487538853/posts/{{ $('Facebook Graph API').item.json.id }}\n",
+            "STT": "={{ $('Airtable').item.json.ID }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "STT",
+              "displayName": "STT",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tiêu đề bài viết",
+              "displayName": "Tiêu đề bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nội dung bài viết",
+              "displayName": "Nội dung bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ngày đăng",
+              "displayName": "Ngày đăng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link bài viết",
+              "displayName": "Link bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1300,
+        500
+      ],
+      "id": "a9ee5aae-f25a-4cba-88c9-a5b6d601dd85",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[1].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content:\")[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1280,
+        80
+      ],
+      "id": "c7a5ab96-96d5-4993-87d0-8cca4de2a4b3",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1460,
+        80
+      ],
+      "id": "fa53110a-fcbe-42d6-9b74-c22b6d9e83dd",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const postDate = new Date().toLocaleString();  // Thời gian hiện tại (ngày giờ)\nreturn [\n  {\n    json: {\n      postDate: postDate\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        500
+      ],
+      "id": "6266e665-936e-4b9b-b3aa-ee0891482043",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lấy dữ liệu lastStatus từ Set node trước đó, nếu không có thì khởi tạo là 0\nconst staticData = $json[\"lastStatus\"] || 0;\n\n// Tính toán số dòng mới sẽ được đăng hôm nay\nconst newStatus = staticData + 1; // Dòng hôm nay sẽ là dòng sau dòng đã đăng hôm qua\n\n// Cập nhật lại giá trị lastStatus sau khi đăng bài thành công\n$json[\"lastStatus\"] = newStatus;\n\n// Trả về dòng mới cho các bước sau trong workflow\nreturn [{ JSON: { id: newStatus } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -440,
+        140
+      ],
+      "id": "9d8b260d-df89-43f2-98cd-0e47a181df53",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "chatId": "8092147975",
+        "text": "={{ $json.title }}\n{{ $json.content }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        200
+      ],
+      "id": "a6af2f31-d1a1-44b9-89cd-8cb2c6c3b121",
+      "name": "Telegram",
+      "webhookId": "8d912570-25ad-4c98-9a34-2264e2e1262d",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[1].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content:\")[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        -100
+      ],
+      "id": "6d7a7c28-cac1-4177-876b-5d03c3c61026",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -180
+      ],
+      "id": "e98eb990-45f5-468c-af16-b5518648dbaa",
+      "name": "Code4"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.6,
+      "position": [
+        200,
+        300
+      ],
+      "id": "a7cf3f6d-2c54-4eaa-b325-0b59f6e29558",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "ImAqbz8rwpCkA4Zj",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-20T09:55:44.925Z",
+  "versionId": "52a17a65-243b-4f63-a45a-7d5596e5f03c"
+}
