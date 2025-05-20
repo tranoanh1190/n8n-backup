@@ -1,0 +1,1533 @@
+{
+  "active": false,
+  "connections": {
+    "Zalo User Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Phân loại kiểu tin nhắn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kiểm tra có lệnh tạo ảnh": {
+      "main": [
+        [
+          {
+            "node": "Tạo mảng 4 số",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuyển đổi Base64 thành file ảnh": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Trick save json",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tạo mảng 4 số": {
+      "main": [
+        [
+          {
+            "node": "Chuyển biến count thành mảng cho Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuyển biến count thành mảng cho Output": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Phân loại kiểu tin nhắn": {
+      "main": [
+        [
+          {
+            "node": "Kiểm tra có lệnh tạo ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Dịch câu hỏi sang English",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chuyển đổi Base64 thành file ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Check Retry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Retry": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trick save json": {
+      "main": [
+        [
+          {
+            "node": "Gửi ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain2": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Xoá ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Khới tạo bảng": {
+      "main": [
+        []
+      ]
+    },
+    "Dịch câu hỏi sang English": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Dịch câu hỏi sang English",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "run_sql": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_scheme": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-19T09:39:22.065Z",
+  "id": "M1W1pafiULq7OsAy",
+  "isArchived": true,
+  "meta": null,
+  "name": "Bài 3_full_Retry",
+  "nodes": [
+    {
+      "parameters": {
+        "events": [
+          "message",
+          "group_event",
+          "reaction",
+          "undo"
+        ],
+        "allowedThreadIds": "2541917905665255317"
+      },
+      "type": "n8n-nodes-zalo-user.zaloUser",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        1400
+      ],
+      "id": "c266ee18-f4dd-4685-aa51-6ff7061423e5",
+      "name": "Zalo User Trigger",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "WbCez0OLVE1tXlki",
+          "name": "Zalo OanhTran Land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "threadId": "2541917905665255317"
+      },
+      "type": "n8n-nodes-zalo-user.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        2070,
+        1000
+      ],
+      "id": "c3051184-5a9f-4c71-bb14-c125010bfa6a",
+      "name": "Zalo User Interact",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "WbCez0OLVE1tXlki",
+          "name": "Zalo OanhTran Land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "84700ced-9d55-4241-86ba-641b7933e0aa",
+              "leftValue": "={{ $('Zalo User Trigger').item.json.isSelf }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        140,
+        1400
+      ],
+      "id": "350c23bb-5969-47c0-a069-52566991dda8",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=threadId:{{ $('Zalo User Trigger').item.json.threadId }}:uidFrom:{{ $('Zalo User Trigger').item.json.data.uidFrom }}",
+        "contextWindowLength": 1000
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        1552,
+        1220
+      ],
+      "id": "eaf6ad13-479c-4d19-841f-d19e73d82477",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "hTRAls3X7dPKERDG",
+          "name": "Redis Local VPS"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a7147ae5-c964-4891-bd3b-73662d39c1d2",
+              "leftValue": "={{ $json.data.content }}",
+              "rightValue": "/image",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        580,
+        1000
+      ],
+      "id": "a875cd29-1105-414d-93b4-628ecbcc49e4",
+      "name": "Kiểm tra có lệnh tạo ảnh"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "={{ \n  [\"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\", \n    \"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\", \n    \"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\", \n    \"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\"\n  ][Math.floor(Math.random() * 4)] \n}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"generationConfig\": {\n    \"responseModalities\": [\n      \"image\",\n      \"text\"\n    ],\n    \"responseMimeType\": \"text/plain\"\n  },\n  \"contents\": [\n    {\n      \"role\": \"user\",\n      \"parts\": [\n        {\n          \"text\": \"generate image {{ $('Zalo User Trigger').item.json.data?.content.substring(7) }}\"\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2070,
+        475
+      ],
+      "id": "1f160562-0024-4604-ad51-527268fb6281",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: $input.first().json.candidates[0].content?.parts?.find(p => p?.inlineData?.mimeType === 'image/png')?.inlineData?.data,\n        mimeType: \"image/png\",\n        fileName: 'output.png', // tên file\n      },\n    },\n    json: $('Zalo User Trigger').first().json, // bạn có thể giữ lại dữ liệu json nếu cần\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2744,
+        500
+      ],
+      "id": "302eb231-3514-4731-8857-67ec6e6f8bfc",
+      "name": "Chuyển đổi Base64 thành file ảnh"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/images-{{ $json.data.ts }}-{{ $('Loop Over Items').item.json.count }}.png",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2964,
+        500
+      ],
+      "id": "b0ed7943-ffa3-441a-a1c4-4bbe6c787fe5",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "command": "=find /home/node -type f -mmin +10 -exec rm {} \\;"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        140,
+        -60
+      ],
+      "id": "9a5cc4fd-8e29-49ca-8cb1-c5c3e324b29f",
+      "name": "Xoá ảnh"
+    },
+    {
+      "parameters": {
+        "threadId": "2541917905665255317"
+      },
+      "type": "n8n-nodes-zalo-user.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        2446,
+        200
+      ],
+      "id": "8daa95fa-7633-4417-a3f5-6bee06f602eb",
+      "name": "Gửi ảnh",
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "retryOnFail": false,
+      "notesInFlow": false,
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "WbCez0OLVE1tXlki",
+          "name": "Zalo OanhTran Land"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1662,
+        475
+      ],
+      "id": "b6f1ffad-a28d-4dee-8048-989fe97fe8dd",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3184,
+        550
+      ],
+      "id": "82eb38ca-0b02-4a75-b96d-80b9d7aa96e7",
+      "name": "Wait",
+      "webhookId": "0feb7fa7-380b-4b23-8758-19ce9e57fd98"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38ddf2e3-176e-4a5a-9392-48df66a3dde7",
+              "name": "count",
+              "value": "[1,2,3,4]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        878,
+        475
+      ],
+      "id": "08140e62-cea6-4d2f-a08e-eb59f2ea834d",
+      "name": "Tạo mảng 4 số"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "count",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1254,
+        475
+      ],
+      "id": "9a0a5fb7-d6a8-440e-8242-31bad3248f0a",
+      "name": "Chuyển biến count thành mảng cho Output"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "webchat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "dab6ae22-64bf-4b56-b18a-49d136e59e46"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8aa6ca0d-5151-465d-8576-234294b77876",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "chat.sticker",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "sticker"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8bdb716e-0efd-4e9a-9df7-e6fe24aa1963",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "chat.photo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "photo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        360,
+        1400
+      ],
+      "id": "fa69fbde-7354-490f-a4e3-235828dab78b",
+      "name": "Phân loại kiểu tin nhắn"
+    },
+    {
+      "parameters": {
+        "text": "=hãy trích xuất tên, số điện thoại, email\ntừ nội dung này {{ $json.data.content }}\nnếu không có thì trả về unknown",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"phone\": {\n      \"type\": \"string\"\n    },\n    \"email\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"name\",\n    \"phone\",\n    \"email\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        800,
+        1200
+      ],
+      "id": "f7fde17b-4278-449f-a33d-39b2d7a0bbf9",
+      "name": "Information Extractor",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        888,
+        1420
+      ],
+      "id": "2d0e102c-796f-438f-bae3-8236146288fd",
+      "name": "Google Gemini Chat Model1",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-zalo-user.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        1254,
+        1300
+      ],
+      "id": "3b4c94f8-ca6d-4d35-b9d4-173fd88215b4",
+      "name": "Zalo User Interact1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant. Whenever askes to update a task, call the tools first to get data.\nAuto translate to english before using tool\nAuto using get_scheme before run sql\n\nToday's date: {{ $now }}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1584,
+        1000
+      ],
+      "id": "d858d8e5-a20a-4189-9d4a-aeeef37d21fc",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.content.href }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        580,
+        1750
+      ],
+      "id": "b6ff9aac-d3b9-4112-8e9e-39ba3d3d29e1",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=phân tích ảnh này\n{{ $json.data.previewThumb }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        800,
+        1750
+      ],
+      "id": "8bb0f483-d8e1-46ed-99b5-5c6ca6a18ef1",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        888,
+        1970
+      ],
+      "id": "83d08dbe-f8f4-4107-bdae-787613c20e92",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "=trích xuất nội dung hoá đơn gồm tên, số lượng, giá tiền, tổng tiền\n{{ $('AI Agent1').item.json.output }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"quantity\": {\n      \"type\": \"string\"\n    },\n    \"price\": {\n      \"type\": \"string\"\n    },\n    \"sum\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"name\",\n    \"quantity\",\n    \"price\",\n    \"sum\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        1992,
+        1400
+      ],
+      "id": "5b72b522-bb10-4a70-a768-0434dcc4424a",
+      "name": "Information Extractor1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        1620
+      ],
+      "id": "f861fb61-97d8-433f-9ed7-cd3d22d203f3",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=tóm tắt nội dung của cái hoá đơn này, trả lời dạng text, không chứa markdown, không chứa mã html\n{{ JSON.stringify($json.output) }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        2368,
+        1250
+      ],
+      "id": "7a9ad66a-7caf-4b38-8d5b-67d5abf67a30",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2456,
+        1470
+      ],
+      "id": "f729b8e8-34cd-40e9-87b4-2139fdd7a04d",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "threadId": "2541917905665255317"
+      },
+      "type": "n8n-nodes-zalo-user.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        2744,
+        1350
+      ],
+      "id": "a42a2b64-d883-440c-95ab-d7d02d531a62",
+      "name": "Zalo User Interact2",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "WbCez0OLVE1tXlki",
+          "name": "Zalo OanhTran Land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=theo bạn thì nội dung có liên quan đến hoá đơn bán hàng hay không, nếu có trả lời true, không trả lời false\n{{ $json.output }}\n\nlưu ý chỉ trả lời true hoặc false"
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        1176,
+        1750
+      ],
+      "id": "897fbbfb-26d2-4048-bf6c-4f22c39ecba7",
+      "name": "Basic LLM Chain1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        1970
+      ],
+      "id": "e81d8cd5-ac53-42ca-a41b-be1e8a94c7cf",
+      "name": "Google Gemini Chat Model5",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "162779ef-3a09-4cf7-bee7-2d9d99c2caf4",
+              "leftValue": "={{ $json.text.toLowerCase() }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1662,
+        1750
+      ],
+      "id": "3e60dcdc-8455-49c1-bb0c-804593e015ff",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "threadId": "2541917905665255317"
+      },
+      "type": "n8n-nodes-zalo-user.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        2446,
+        1950
+      ],
+      "id": "6b397aaf-f8af-477a-a8d1-6422070a6ca5",
+      "name": "Zalo User Interact3",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "WbCez0OLVE1tXlki",
+          "name": "Zalo OanhTran Land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2446,
+        1650
+      ],
+      "id": "c5083393-b45a-4741-ac7d-a48c9bcba2bc",
+      "name": "Google Sheets",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "54857a71-f842-4b75-944e-0e51d618c120",
+              "leftValue": "={{ $('Zalo User Trigger').item.json.data?.content }}",
+              "rightValue": "/ai",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        878,
+        1000
+      ],
+      "id": "e3968c06-67b5-47c1-ab9f-5699ddcaca3b",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "99f6d028-013f-479d-8dab-09310fb954eb",
+              "leftValue": "={{ new Array(\"IMAGE_SAFETY\") }}",
+              "rightValue": "={{ $json.candidates[0].finishReason }}",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2446,
+        400
+      ],
+      "id": "bd561a9e-d913-4810-a5db-67176f9f5346",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=GeminiRetry:{{ $('Zalo User Trigger').item.json.data.ts }}-{{ $('Loop Over Items').item.json.count }}",
+        "expire": true,
+        "ttl": 300
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2744,
+        300
+      ],
+      "id": "53d2269d-3346-4db1-b265-0d2a39ed3a60",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "hTRAls3X7dPKERDG",
+          "name": "Redis Local VPS"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e8956b78-bdd9-4979-9309-c63f1317adc2",
+              "leftValue": "={{ $json.values()[0] }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2964,
+        300
+      ],
+      "id": "9e643814-ec42-4ec3-beac-fef33298cd48",
+      "name": "Check Retry"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3184,
+        350
+      ],
+      "id": "cfe66ade-8a7b-45a0-a52b-d8f9465a684b",
+      "name": "Wait1",
+      "webhookId": "c6bad3ee-e5f9-42a7-8bcb-d21f903287f3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b35b380e-ec2b-4d65-9fdf-c07bc91345f0",
+              "name": "json",
+              "value": "={{ $json }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2070,
+        200
+      ],
+      "id": "89ee90a6-e399-4e74-892a-bb3e55d2ed97",
+      "name": "Trick save json"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Hãy tóm tắt nội dung sau đây, không chứa markdown trong câu trả lời:\n{{ $('AI Agent1').item.json.output }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        1992,
+        1950
+      ],
+      "id": "e3c12ec6-eadb-47b7-94a0-b1d143f7d1ee",
+      "name": "Basic LLM Chain2"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        2170
+      ],
+      "id": "829af575-0a5c-4dba-a402-b1485d17feb0",
+      "name": "Google Gemini Chat Model6",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -80,
+        -60
+      ],
+      "id": "cb2fedf1-5889-4912-a531-6d77ed704be0",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Table: customers\nCREATE TABLE customers (\n    customer_id SERIAL PRIMARY KEY,\n    customer_name VARCHAR(100),\n    contact_name VARCHAR(100),\n    address VARCHAR(255),\n    city VARCHAR(100),\n    postal_code VARCHAR(20),\n    country VARCHAR(100)\n);\n\n-- Table: suppliers\nCREATE TABLE suppliers (\n    supplier_id SERIAL PRIMARY KEY,\n    supplier_name VARCHAR(100),\n    contact_name VARCHAR(100),\n    address VARCHAR(255),\n    city VARCHAR(100),\n    postal_code VARCHAR(20),\n    country VARCHAR(100),\n    phone VARCHAR(30)\n);\n\n-- Table: categories\nCREATE TABLE categories (\n    category_id SERIAL PRIMARY KEY,\n    category_name VARCHAR(100),\n    description TEXT\n);\n\n-- Table: products\nCREATE TABLE products (\n    product_id SERIAL PRIMARY KEY,\n    product_name VARCHAR(100),\n    supplier_id INT REFERENCES suppliers(supplier_id),\n    category_id INT REFERENCES categories(category_id),\n    unit VARCHAR(100),\n    price NUMERIC(10, 2)\n);\n\n-- Table: employees\nCREATE TABLE employees (\n    employee_id SERIAL PRIMARY KEY,\n    last_name VARCHAR(100),\n    first_name VARCHAR(100),\n    birth_date DATE,\n    photo TEXT,\n    notes TEXT\n);\n\n-- Table: shippers\nCREATE TABLE shippers (\n    shipper_id SERIAL PRIMARY KEY,\n    shipper_name VARCHAR(100),\n    phone VARCHAR(30)\n);\n\n-- Table: orders\nCREATE TABLE orders (\n    order_id SERIAL PRIMARY KEY,\n    customer_id INT REFERENCES customers(customer_id),\n    employee_id INT REFERENCES employees(employee_id),\n    order_date DATE,\n    shipper_id INT REFERENCES shippers(shipper_id)\n);\n\n-- Table: order_details\nCREATE TABLE order_details (\n    order_detail_id SERIAL PRIMARY KEY,\n    order_id INT REFERENCES orders(order_id),\n    product_id INT REFERENCES products(product_id),\n    quantity INT\n);\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -80,
+        2310
+      ],
+      "id": "57634b33-9fdc-49ca-919b-9cd5484294cd",
+      "name": "Khới tạo bảng",
+      "credentials": {
+        "postgres": {
+          "id": "sD3JQqodL9QJwFZl",
+          "name": "Postgres Supabase Internal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO customers (customer_name, contact_name, address, city, postal_code, country) VALUES\n('Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57', 'Berlin', '12209', 'Germany'),\n('Centro comercial Moctezuma', 'Francisco Chang', 'Sierras de Granada 9993', 'México D.F.', '05022', 'Mexico'),\n('Ernst Handel', 'Roland Mendel', 'Kirchgasse 6', 'Graz', '8010', 'Austria'),\n('Island Trading', 'Helen Bennett', 'Garden House Crowther Way', 'Cowes', 'PO31 7PJ', 'UK');\n\n  INSERT INTO suppliers (supplier_name, contact_name, address, city, postal_code, country, phone) VALUES\n('Exotic Liquids', 'Charlotte Cooper', '49 Gilbert St.', 'London', 'EC1 4SD', 'UK', '1715552222'),\n('New Orleans Cajun Delights', 'Shelley Burke', 'P.O. Box 78934', 'New Orleans', '70117', 'USA', '5045554822');\n\n\n  INSERT INTO categories (category_name, description) VALUES\n('Beverages', 'Soft drinks, coffees, teas, beers, and ales'),\n('Condiments', 'Sweet and savory sauces, relishes, spreads, and seasonings');\n\n  INSERT INTO products (product_name, supplier_id, category_id, unit, price) VALUES\n('Chai', 1, 1, '10 boxes x 20 bags', 18.00),\n('Chang', 1, 1, '24 - 12 oz bottles', 19.00),\n('Aniseed Syrup', 1, 2, '12 - 550 ml bottles', 10.00),\n('Chef Anton''s Cajun Seasoning', 2, 2, '48 - 6 oz jars', 22.00);\n\n\n  INSERT INTO employees (last_name, first_name, birth_date, photo, notes) VALUES\n('Davolio', 'Nancy', '1968-12-08', '', 'Education includes a BA in psychology from Colorado State University.'),\n('Fuller', 'Andrew', '1952-02-19', '', 'Andrew received his BTS commercial in 1974 and a Ph.D. in international marketing.');\n\n\n  INSERT INTO shippers (shipper_name, phone) VALUES\n('Speedy Express', '5035559831'),\n('United Package', '5035553199'),\n('Federal Shipping', '5035559931');\n\n\n  INSERT INTO orders (customer_id, employee_id, order_date, shipper_id) VALUES\n(1, 1, '2023-05-01', 1),\n(2, 2, '2023-05-03', 2),\n(3, 1, '2023-05-05', 3),\n(4, 2, '2023-05-07', 1);\n\n\n  INSERT INTO order_details (order_id, product_id, quantity) VALUES\n(1, 1, 12),\n(1, 2, 10),\n(2, 3, 5),\n(3, 4, 7),\n(4, 2, 3);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -80,
+        2570
+      ],
+      "id": "ab0e7b33-1e50-438d-b3ca-58f029673608",
+      "name": "Tạo dữ liệu mẫu",
+      "credentials": {
+        "postgres": {
+          "id": "sD3JQqodL9QJwFZl",
+          "name": "Postgres Supabase Internal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=translate into English: {{ $json?.data?.content?.substring(4) }}\nResponse only text input",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1176,
+        900
+      ],
+      "id": "006b8ad0-3df6-4da2-a6bd-1c22f5934b67",
+      "name": "Dịch câu hỏi sang English"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        1120
+      ],
+      "id": "e83b1210-00d4-49cd-ae0f-3b265da9377e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "run sql after get_scheme",
+        "operation": "executeQuery",
+        "query": "{{ $fromAI('sql', 'sql') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.6,
+      "position": [
+        1672,
+        1220
+      ],
+      "id": "53e0be03-907b-48a1-88e1-0d2934c408ae",
+      "name": "run_sql",
+      "credentials": {
+        "postgres": {
+          "id": "sD3JQqodL9QJwFZl",
+          "name": "Postgres Supabase Internal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "get_scheme of 8 table",
+        "operation": "executeQuery",
+        "query": "SELECT table_name, column_name, data_type, is_nullable\nFROM information_schema.columns\nWHERE table_name IN (\n    'customers',\n    'suppliers',\n    'categories',\n    'products',\n    'employees',\n    'shippers',\n    'orders',\n    'order_details'\n)\nORDER BY table_name, ordinal_position;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.6,
+      "position": [
+        1792,
+        1220
+      ],
+      "id": "d1df9fc5-88dc-483a-bc39-e4d8a2da5ba0",
+      "name": "get_scheme",
+      "credentials": {
+        "postgres": {
+          "id": "sD3JQqodL9QJwFZl",
+          "name": "Postgres Supabase Internal"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-05-20T10:30:54.658Z",
+  "versionId": "e751fa6a-7b8e-45ee-a303-f120c8bd17b7"
+}
