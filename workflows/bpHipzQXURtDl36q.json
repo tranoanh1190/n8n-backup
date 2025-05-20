@@ -1,0 +1,536 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code5": {
+      "main": [
+        [
+          {
+            "node": "BanNhap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-04T08:32:24.235Z",
+  "id": "bpHipzQXURtDl36q",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Post Facebook",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2420,
+        640
+      ],
+      "id": "d3206fc6-c2ff-43cf-b708-1ac9a9f42dca",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Bạn là một AI chuyên về robot, bạn sẽ viết nội dung về robot dành cho mọi người và đăng tải lên Facebook. Bạn hãy viết cho tôi một bài Facebook chia sẽ về chủ đề: {{ $json['Chủ đề'] }} bao gồm nội dung: {{ $json['Nội dung chính'] }}\n\nChú ý: \n- Trả ra kết quả bằng tiếng Việt\n- Trả ra dưới dạng: Title, Content và Image(Image không được cho thêm chữ \"Prompt\" vào).\n+ Title: 1 câu tiêu đề  hấp dẫn và thu hút sự chú ý của người đọc, bạn hãy chọn một câu ngắn gọn, dễ hiểu và liên quan đến nội dung chính. \n+ Content: 1 đoạn nội dung chi tiết nói về chủ đề đó, nội dung đầy đủ, kết hợp các icon ở vị trí hợp lý và tránh lạm dụng.\nBên dưới sẽ có các thẻ được gắn liên quan đến chủ đề và nội dung, khi gắn thẻ hiển thị thẻ màu xanh và người dùng có thể click chuột vào được.Mỗi thẻ xuống dòng cho đẹp và dễ nhìn.\nFormat nội dung cho người dùng dễ nhìn.\nKết hợp thêm các icon để làm bài viết sinh động hơn, tạo cảm giác gần gũi cho người đọc. \nkhông sử dụng các ký tự đặc biệt như dấu \"#\", \"*\".\n+ Image: 1 prompt để tạo hình ảnh liên quan đến chủ đề đó. (Image cố định không thay đổi định dạng như chữ hoa, chữ thường, cố định là: \"Image\").\n\nKhi cập nhật dữ liệu vào Sheet BanNhap, nếu cột \"Image\" có giá trị là một đường link ảnh, hãy tự động chuyển giá trị đó thành công thức =IMAGE(\"url\") trước khi ghi vào Sheet, để hiển thị hình ảnh trực tiếp trong bảng tính. Phải đảm bảo mỗi đường link đều được bao trong công thức =IMAGE(\"...\"). Nếu link đã ở dạng =IMAGE(...) thì giữ nguyên, không thêm thêm lần nữa.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -1720,
+        660
+      ],
+      "id": "15074865-6313-46c9-a359-f5d9a87581a6",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1780,
+        960
+      ],
+      "id": "d4f22d46-f216-464e-b94f-d50a33a40165",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const baseDate = new Date(\"2025-05-20\"); // Ngày bắt đầu\nconst today = new Date();\n\n// Tính số ngày đã trôi qua\nconst diffDays = Math.floor((today - baseDate) / (1000 * 60 * 60 * 24));\n\n// Nếu bạn có 10 bài, thì quay vòng từ 1 đến 10\nconst totalPosts = 10;\nconst id = (diffDays % totalPosts) + 1;\n\nreturn [{ json: { id } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2160,
+        620
+      ],
+      "id": "a5355a4c-7458-4f33-bea4-a4beb722f44a",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "8092147975",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        420
+      ],
+      "id": "b296b505-1534-4368-ab16-1aecd022b178",
+      "name": "Telegram",
+      "webhookId": "8d912570-25ad-4c98-9a34-2264e2e1262d",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[1].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content:\")[1].split(\"Image:\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "87c83097-3548-4444-90f7-3e6b762178ee",
+              "name": "image",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Image:\")[1]}}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1400,
+        420
+      ],
+      "id": "4642d31b-d3f5-42c9-8c50-b6a389c945ba",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n  const image = item.json.image || '';\n\n  // Xóa ký tự * và ` bằng regex\n  const cleanedTitle = title.replace(/[*`]+/g, '').trim();\n  const cleanedContent = content.replace(/[*`]+/g, '').trim();\n  const cleanedImage = image.replace(/[*`]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent,\n      image: cleanedImage\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        280
+      ],
+      "id": "8b8366ab-4c8f-4927-99b1-46ae2fe01335",
+      "name": "Code4"
+    },
+    {
+      "parameters": {
+        "jsCode": "const postDate = new Date().toLocaleString();  // Thời gian hiện tại (ngày giờ)\nreturn [\n  {\n    json: {\n      postDate: postDate\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        60
+      ],
+      "id": "140a7b55-5b36-48f5-9d03-3c665f6ab5b6",
+      "name": "Code5"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1727576462,
+          "mode": "list",
+          "cachedResultName": "Doc",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=1727576462"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $('Code4').item.json.title }}",
+            "Content": "={{ $('Code4').item.json.content }}",
+            "STT": "={{ $('Google Sheets').item.json.ID }}",
+            "Image": "=https://api.telegram.org/file/bot7251436471:AAEyGbPWIBXWxFEgp4tNE5RXmq8E-XE151U/{{ $('HTTP Request1').item.json.result.file_path }}\n"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "STT",
+              "displayName": "STT",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Content",
+              "displayName": "Content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image",
+              "displayName": "Image",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        180,
+        180
+      ],
+      "id": "647c7487-1709-4cbe-ac2a-b7beb72d0ecd",
+      "name": "BanNhap",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1oK7ghDmwgvcImf8RjVwWMIyodMHtdHSI0933FQunPjc",
+          "mode": "list",
+          "cachedResultName": "PostFB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oK7ghDmwgvcImf8RjVwWMIyodMHtdHSI0933FQunPjc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oK7ghDmwgvcImf8RjVwWMIyodMHtdHSI0933FQunPjc/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ID",
+              "lookupValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -1940,
+        460
+      ],
+      "id": "e1ba6b59-8b74-49f3-ab9d-d5cafbf6521a",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "AIzaSyAAdgxxxAyUHW-zzUWs26FJsFsrAMfwMFM"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ $json.image }}\"\n        }\n      ]\n    }\n  ],\n  \"generationConfig\": {\n    \"responseModalities\": [\n      \"TEXT\",\n      \"IMAGE\"\n    ]\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1060,
+        480
+      ],
+      "id": "bfab6976-6019-43ca-8168-7e5a2c9837c3",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "candidates[0].content.parts[1].inlineData.data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -840,
+        260
+      ],
+      "id": "03981f33-8153-4373-981e-36971f30313e",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot7251436471:AAEyGbPWIBXWxFEgp4tNE5RXmq8E-XE151U/getFile?file_id={{ $('Telegram').item.json.result.photo[1].file_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        80
+      ],
+      "id": "e7880f84-edd2-48e2-b38f-d2f985cfd28b",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "chatId": "8092147975",
+        "text": "={{ $('Code4').item.json.title }}  {{ $('Code4').item.json.content }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -460,
+        220
+      ],
+      "id": "12d57bc1-19cb-4de1-8e60-e0866fbdc8d8",
+      "name": "Telegram1",
+      "webhookId": "8d912570-25ad-4c98-9a34-2264e2e1262d",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "global": {
+      "lastStatus": 5
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-20T13:52:34.426Z",
+  "versionId": "d8948c70-23ad-42f1-b167-686b1bc2e686"
+}
