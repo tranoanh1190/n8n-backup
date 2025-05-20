@@ -1,0 +1,471 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-08T01:51:39.273Z",
+  "id": "gWx4LOXFdEEDADyC",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2080,
+        120
+      ],
+      "id": "bb7cf392-44d2-472b-bc39-8a67a533f3a5",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appnKcZKibcMSm2TL",
+          "mode": "list",
+          "cachedResultName": "Post Facebook",
+          "cachedResultUrl": "https://airtable.com/appnKcZKibcMSm2TL"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblY9lu9D8WZbRuNw",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appnKcZKibcMSm2TL/tblY9lu9D8WZbRuNw"
+        },
+        "filterByFormula": "=ID = {{ $json.JSON.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -1420,
+        100
+      ],
+      "id": "7f210bd4-1484-43d6-9f94-77250bdcec80",
+      "name": "Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "srn9FEup9oSQPslV",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Bạn là một AI chuyên về robot, bạn sẽ viết nội dung về robot dành cho mọi người và đăng tải lên Facebook. Bạn hãy viết cho tôi một bài Facebook chia sẽ về chủ đề: {{ $json['Chủ đề'] }} bao gồm nội dung: {{ $json['Nội dung chính'] }} \nChú ý: \n- Trả ra kết quả bằng tiếng Việt\n+ Title: 1 câu tiêu đề  hấp dẫn và thu hút sự chú ý của người đọc, bạn hãy chọn một câu ngắn gọn, dễ hiểu và liên quan đến nội dung chính. \n+ Content: 1 đoạn nội dung chi tiết nói về chủ đề đó, nội dung đầy đủ, kết hợp các icon ở vị trí hợp lý và tránh lạm dụng.\nFormat nội dung cho người dùng dễ nhìn.\nKết hợp thêm các icon để làm bài viết sinh động hơn, tạo cảm giác gần gũi cho người đọc. \nkhông sử dụng các ký tự đặc biệt như dấu \"#\", \"*\".\nBên dưới sẽ có các thẻ được gắn liên quan đến chủ đề và nội dung, khi gắn thẻ hiển thị thẻ màu xanh và người dùng có thể click chuột vào được.Mỗi thẻ xuống dòng cho đẹp và dễ nhìn.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -1080,
+        100
+      ],
+      "id": "537d977c-0390-434e-935e-990c8455fc25",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1160,
+        340
+      ],
+      "id": "36a00bf4-f0c0-46c4-8f94-259b587e0fe0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[1].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content:\")[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -740,
+        -100
+      ],
+      "id": "005fbce0-bd10-4ca2-84bd-274766b8bc0d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -500,
+        -100
+      ],
+      "id": "c75d79a1-d414-4d9a-b323-d8ea98b05b81",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v20.0",
+        "node": "me",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $json.title }}\n{{ $json.content }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -60
+      ],
+      "id": "f9f99c8f-8544-4801-9ed3-3197a98c1237",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "30OmaJU4fBnWvWCI",
+          "name": "Facebook thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "baiviet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nội dung bài viết": "={{ $('Code2').item.json.content }}",
+            "Tiêu đề bài viết": "={{ $('Code2').item.json.title }}",
+            "Ngày đăng": "={{ $json.postDate }}",
+            "Link bài viết": "=https://www.facebook.com/61566487538853/posts/{{ $('Facebook Graph API').item.json.id }}\n",
+            "STT": "={{ $('Airtable').item.json.ID }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "STT",
+              "displayName": "STT",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tiêu đề bài viết",
+              "displayName": "Tiêu đề bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nội dung bài viết",
+              "displayName": "Nội dung bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ngày đăng",
+              "displayName": "Ngày đăng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link bài viết",
+              "displayName": "Link bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        140,
+        520
+      ],
+      "id": "b923fe0b-e609-47d9-96f3-06b04ca02137",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[1].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content:\")[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "81e329bb-8cb0-4882-9079-a600e8470b34",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        200,
+        100
+      ],
+      "id": "f9c78ae8-5e35-4861-97b1-280e2854829b",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const postDate = new Date().toLocaleString();  // Thời gian hiện tại (ngày giờ)\nreturn [\n  {\n    json: {\n      postDate: postDate\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        520
+      ],
+      "id": "ee9f357f-2df8-45ec-b7ac-0a3f34870b99",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lấy ID bài viết từ Google Sheets (hoặc dữ liệu trước đó)\nconst staticData = $json[\"id\"] || 0;  // Lấy ID bài viết, nếu không có thì khởi tạo là 0\n\n// Tính toán ID bài viết tiếp theo cần đăng\nconst newStatus = staticData + 1; // Dùng ID tiếp theo để đăng bài\n\n// Cập nhật lại ID bài viết sau khi đăng thành công\n$json[\"id\"] = newStatus;  // Lưu ID mới vào $json\n\n// Trả về ID cho các bước tiếp theo trong workflow\nreturn [{ JSON: { id: newStatus } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1660,
+        0
+      ],
+      "id": "a1382f50-4825-4b15-b5f4-082f89f8e807",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-08T04:14:25.279Z",
+  "versionId": "7d1b0c69-2de8-4285-a7df-fe175661e824"
+}
