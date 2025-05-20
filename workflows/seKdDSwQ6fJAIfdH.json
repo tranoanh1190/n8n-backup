@@ -1,0 +1,607 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateSheetTool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "History": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        []
+      ]
+    },
+    "NocoDB": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-26T07:45:48.763Z",
+  "id": "seKdDSwQ6fJAIfdH",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Báo Giá",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -660,
+        -20
+      ],
+      "id": "f5e20919-e3ff-44de-a1e0-ba02fd9b23f7",
+      "name": "Telegram Trigger",
+      "webhookId": "5f75a3c4-0a2b-441e-8220-69d13f09cf8b",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Switch').item.json.message.text }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Bạn là trợ lý cá nhân tối ưu của tôi. Nhiệm vụ của bạn là nhận yêu cầu từ người dùng và điều hướng đúng công cụ để xử lý. Hướng dẫn chi tiết như sau:\n\nBước 1: Phân tích yêu cầu người dùng. Khi người dùng gửi yêu cầu, cần xác định rõ: họ yêu cầu báo giá robot nào, số lượng từng loại robot là bao nhiêu. Nếu người dùng không ghi rõ số lượng cho robot, mặc định hiểu là 1. Nếu người dùng ghi rõ số lượng, ví dụ \"robot B số lượng 3\", thì hiểu rằng cần báo giá cho 3 sản phẩm robot B. Bắt buộc phải giữ đúng thứ tự robot theo thứ tự người dùng nhập vào, không được thay đổi hay tự động sắp xếp lại.\n\nBước 2: Truy xuất thông tin từ Google Sheet. Sử dụng công cụ NocoDB để đọc dữ liệu từ file Google Sheet đã có sẵn. Nếu người dùng yêu cầu một hoặc nhiều robot cụ thể, NocoDB phải lấy thông tin đúng các robot theo đúng thứ tự mà người dùng đã yêu cầu. Nếu người dùng yêu cầu báo giá cho tất cả robot, NocoDB phải lấy toàn bộ danh sách robot hiện có trong file Google Sheet, không được bỏ sót bất kỳ robot nào.\n\nBước 3: Tính toán tổng tiền cho từng robot. Sau khi có thông tin tên robot và giá từ Google Sheet, thực hiện phép tính tổng tiền cho mỗi robot theo công thức: Tổng tiền = Giá × Số lượng. Giá lấy từ Google Sheet, số lượng là số lượng do người dùng yêu cầu hoặc mặc định là 1 nếu người dùng không ghi rõ.\n\n\nTrước khi vào UpdateSheetTool , thì vào Clear để clear dữ liệu cũ trong Google Sheet đi.\n\nBước 4: Sau khi đã xóa dữ liệu cũ đi thì tiến hành cập nhật kết quả vào Google Sheet dữ liệu cập nhật vào bắt đầu bằng số thứ tự 1 và tăng dần qua các hàng. Sử dụng UpdateSheetTool để thêm từng dòng mới vào file Google Sheet theo đúng thứ tự robot người dùng yêu cầu. Mỗi dòng phải bao gồm đầy đủ 4 cột: Tên robot, Hình ảnh, Số lượng, Giá, và Tổng tiền. Phải đảm bảo robot nào người dùng ghi trước thì được thêm vào trước, robot nào ghi sau thì thêm vào sau. Nếu người dùng yêu cầu nhiều robot, phải thực hiện thêm lần lượt từng robot theo thứ tự yêu cầu. Nếu người dùng yêu cầu tất cả robot, thì toàn bộ danh sách robot cũng phải được thêm lần lượt theo thứ tự xuất hiện trong file Google Sheet.\n\nKhi cập nhật dữ liệu vào Sheet báo giá, nếu cột \"Hình ảnh\" có giá trị là một đường link ảnh, hãy tự động chuyển giá trị đó thành công thức =IMAGE(\"url\") trước khi ghi vào Sheet, để hiển thị hình ảnh trực tiếp trong bảng tính. Phải đảm bảo mỗi đường link đều được bao trong công thức =IMAGE(\"...\"). Nếu link đã ở dạng =IMAGE(...) thì giữ nguyên, không thêm thêm lần nữa.\n\nSau khi chạy UpdateSheetTool xong thì chạy vào History để lưu dữ liệu vừa thêm vào. \n\nBước 5: Gửi link file Google Sheet cho người dùng. Sau khi cập nhật thành công, gửi cho người dùng một tin nhắn xác nhận rằng báo giá đã hoàn tất, kèm theo link tới file Google Sheet để người dùng kiểm tra. Tuyệt đối không gửi trực tiếp thông tin giá, tổng tiền hoặc mô tả robot qua tin nhắn. Mọi dữ liệu chỉ thể hiện trong file Google Sheet.\n\nQuy tắc bắt buộc: Luôn đọc thông tin robot từ file Google Sheet bằng NocoDB. Không được tự suy đoán thông tin. Thực hiện tính tổng tiền chính xác dựa trên số lượng mà người dùng yêu cầu. Luôn cập nhật dữ liệu vào file Google Sheet bằng UpdateSheetTool, và luôn theo đúng thứ tự robot như yêu cầu người dùng. Sau cùng gửi link file Google Sheet cho người dùng để kiểm tra. Không được thay đổi thứ tự robot, không được gửi thông tin chi tiết ngoài file Google Sheet.\n\nVí dụ cụ thể:\n\nNếu người dùng yêu cầu: \"Báo giá robot D số lượng 2, robot E số lượng 5, robot F số lượng 3\", trợ lý phải thực hiện như sau:\n\nDùng NocoDB lấy thông tin robot D, E và F, theo đúng thứ tự D -> E -> F như người dùng nhập.\n\nTính tổng tiền lần lượt cho D, E và F.\n\nDùng UpdateSheetTool để thêm 3 dòng vào Google Sheet theo đúng thứ tự: Dòng 1 là robot D, dòng 2 là robot E, dòng 3 là robot F.\n\nSau khi hoàn tất, gửi link file Google Sheet cho người dùng.\n\nNếu người dùng yêu cầu: \"Cho tôi báo giá tất cả robot\", trợ lý thực hiện như sau:\n\nDùng NocoDB lấy toàn bộ danh sách robot.\n\nMặc định số lượng 1 cho mỗi robot.\n\nTính tổng tiền lần lượt.\n\nThêm toàn bộ dữ liệu vào Google Sheet đúng theo thứ tự các robot trong file gốc.\n\nGửi link file Google Sheet cho người dùng.\n\nOutput tiêu chuẩn: Sau khi hoàn tất, gửi tin nhắn: \"Đây là báo giá robot bạn yêu cầu, bạn có thể xem chi tiết tại link: https://docs.google.com/spreadsheets/d/1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4/edit?gid=0#gid=0\".\n\nLưu ý: Toàn bộ các thao tác phải đảm bảo tuân thủ đầy đủ quy trình trên. Phải giữ đúng thứ tự robot theo yêu cầu của người dùng từ bước đọc dữ liệu đến khi cập nhật vào Google Sheet."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        140,
+        -100
+      ],
+      "id": "a65d8707-fbaf-4872-84f5-232d101585ca",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        280
+      ],
+      "id": "1a1ab714-5952-4f7c-a81d-3e119083437b",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_Công"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.message_id }}",
+        "contextWindowLength": 40
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        280
+      ],
+      "id": "bf0d7c58-d293-4dca-b206-5a146b5b81a7",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "27189888-dfab-4411-8ad2-36724be7151a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -400,
+        -20
+      ],
+      "id": "7fccd2d7-5d0e-4d84-a2a8-fe58383cf0a3",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "30be258f-0e90-4007-bae8-76fa6276fb31",
+              "name": "",
+              "value": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -160,
+        -100
+      ],
+      "id": "337e97be-4f72-4d56-a117-e094ccfd04cd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const cleanedText = item.json.output\n    .replace(/\\*+/g, '')    // Xoá dấu *\n    .replace(/[\"]+/g, '');  // Xoá dấu \"\n  \n  return {\n    json: {\n      ...item.json,\n      output: cleanedText\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        -100
+      ],
+      "id": "775aa4d6-a341-48f7-8d6f-c56da53015d5",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $('AI Agent').item.json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        900,
+        -100
+      ],
+      "id": "fd06b646-5ec6-448e-ac51-361dd140c262",
+      "name": "Telegram",
+      "webhookId": "9a241c0d-9964-4dd1-b94e-3e88a6f7a9d4",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4",
+          "mode": "list",
+          "cachedResultName": "Mẫu báo giá",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "báo giá",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Tên Robot": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('T_n_Robot', ``, 'string') }}",
+            "Giá": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Gi_', ``, 'string') }}",
+            "Số lượng": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('S__l__ng', ``, 'string') }}",
+            "Tổng tiền": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('T_ng_ti_n', ``, 'string') }}",
+            "STT": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('STT', ``, 'string') }}",
+            "Hình ảnh": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('H_nh__nh', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "STT",
+              "displayName": "STT",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tên Robot",
+              "displayName": "Tên Robot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Hình ảnh",
+              "displayName": "Hình ảnh",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Giá",
+              "displayName": "Giá",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Số lượng",
+              "displayName": "Số lượng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tổng tiền",
+              "displayName": "Tổng tiền",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        580,
+        260
+      ],
+      "id": "2565ed5c-4e9e-4da3-a17b-8600231cf681",
+      "name": "UpdateSheetTool",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1gN48PH749VyyIEkcJJ_pcvXvf4MsD3yTpWlDy41FtJs",
+          "mode": "list",
+          "cachedResultName": "History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gN48PH749VyyIEkcJJ_pcvXvf4MsD3yTpWlDy41FtJs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "history",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gN48PH749VyyIEkcJJ_pcvXvf4MsD3yTpWlDy41FtJs/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Tên Robot": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('T_n_Robot', ``, 'string') }}",
+            "Hình ảnh": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('H_nh__nh', ``, 'string') }}",
+            "Giá": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Gi_', ``, 'string') }}",
+            "Số lượng": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('S__l__ng', ``, 'string') }}",
+            "Tổng tiền": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('T_ng_ti_n', ``, 'string') }}",
+            "Thời gian": "={{$now}}",
+            "Người yêu cầu (Telegram ID)": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Thời gian",
+              "displayName": "Thời gian",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Người yêu cầu (Telegram ID)",
+              "displayName": "Người yêu cầu (Telegram ID)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tên Robot",
+              "displayName": "Tên Robot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Hình ảnh",
+              "displayName": "Hình ảnh",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Giá",
+              "displayName": "Giá",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Số lượng",
+              "displayName": "Số lượng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tổng tiền",
+              "displayName": "Tổng tiền",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        280,
+        280
+      ],
+      "id": "92b2d39b-6a14-48a2-b995-bb9cd04b0d6f",
+      "name": "History",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4",
+          "mode": "list",
+          "cachedResultName": "Mẫu báo giá",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "báo giá",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Dsj_uzkyHeaRRvuhnS4FueRtz7a7LnpHKGWMvC60AD4/edit#gid=0"
+        },
+        "keepFirstRow": true
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        280
+      ],
+      "id": "059a6a24-87f4-4fc4-be0b-3069f05b2122",
+      "name": "Clear",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "wbtzjgev",
+        "projectId": "pk7yl9ok7pwc3yx",
+        "table": "mwd3r7qmrm989td",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        760,
+        240
+      ],
+      "id": "67a6bdd9-134c-461f-8588-0f5b36852057",
+      "name": "NocoDB",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "9M2ujVq183qCRgLc",
+          "name": "NocoDB Thanhcong"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-03T04:29:30.774Z",
+  "versionId": "d970ae88-95ee-42a9-a19f-91e769a0df29"
+}
