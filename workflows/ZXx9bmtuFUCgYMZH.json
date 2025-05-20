@@ -1,0 +1,351 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Product Keyword",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Products Sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter Products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent (Content Handling)": {
+      "main": [
+        [
+          {
+            "node": "Send AI Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Product Keyword": {
+      "main": [
+        [
+          {
+            "node": "Read Products Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent (Content Handling)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Products": {
+      "main": [
+        [
+          {
+            "node": "Create New Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create New Sheet": {
+      "main": [
+        [
+          {
+            "node": "Append Products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Products": {
+      "main": [
+        [
+          {
+            "node": "Send Sheet Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent (Content Handling)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-27T16:24:44.747Z",
+  "id": "ZXx9bmtuFUCgYMZH",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "0fe001ae-9736-4c84-8569-bb11c833274f",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        200
+      ],
+      "webhookId": "e6a15d53-8ba4-4f76-9761-89f07f0fd3a3",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json[\"message\"][\"text\"] }}",
+              "operation": "regex",
+              "value2": "(giá|báo giá|sản phẩm|mua)"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "33127aef-d256-4ac3-b017-24cb58290845",
+      "name": "Check Product Keyword",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Trang tính1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "3e6b62a4-d109-43a9-a80e-14dfe13707c4",
+      "name": "Read Products Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [
+        40,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "javascript",
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "id": "ed82f200-995b-4c1d-bca2-eea07a49a7f4",
+      "name": "Filter Products",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "documentId": {
+          "__rl": true,
+          "value": "17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit?usp=drivesdk"
+        },
+        "title": "Quotation {{ $now.toISO() }}",
+        "options": {}
+      },
+      "id": "46adfccc-6353-4297-a2d6-29bcb0c01207",
+      "name": "Create New Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [
+        440,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1275587272,
+          "mode": "list",
+          "cachedResultName": "new",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mkrmMjG1_xysf-VW1SsS8xpFkIXWpMyF8Ent_9-Ano/edit#gid=1275587272"
+        },
+        "options": {}
+      },
+      "id": "977a20e3-a294-497b-a205-954d0462ef15",
+      "name": "Append Products",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VIHtHDDVNI9EKf4G",
+          "name": "Google Sheets API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json[\"message\"][\"chat\"][\"id\"] }}",
+        "text": "Đây là báo giá sản phẩm bạn yêu cầu: https://docs.google.com/spreadsheets/d/{{ $node[\"Create New Sheet\"].json[\"spreadsheetId\"] }}/edit",
+        "additionalFields": {}
+      },
+      "id": "d8798511-976e-4584-9089-578462374c4e",
+      "name": "Send Sheet Link",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        840,
+        0
+      ],
+      "webhookId": "0e8a8809-32fa-4955-bbee-dd1dc2c43411",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json[\"message\"][\"text\"] }}",
+        "options": {
+          "systemMessage": "Bạn là trợ lý AI hỗ trợ tạo nội dung và nghiên cứu."
+        }
+      },
+      "id": "fd769d08-3616-4dcb-a7f3-21ff0d81e245",
+      "name": "AI Agent (Content Handling)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        120,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json[\"message\"][\"chat\"][\"id\"] }}",
+        "text": "={{ $node[\"AI Agent (Content Handling)\"].json[\"output\"] }}",
+        "additionalFields": {}
+      },
+      "id": "70cc5cef-3b13-4999-bbec-10d96bfba006",
+      "name": "Send AI Content",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        560,
+        320
+      ],
+      "webhookId": "4d14d01d-1518-42fa-8bab-5681b8dff1b9",
+      "credentials": {
+        "telegramApi": {
+          "id": "AJ9RDYkHJKzkMZ3V",
+          "name": "Tele API(Phong)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        0,
+        540
+      ],
+      "id": "d94de57e-9c63-49f6-9246-39fa9cf560fd",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sHrgzdSLJyYNIBzS",
+          "name": "Gemini API(Phong)"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-27T17:16:06.362Z",
+  "versionId": "5b05e6ff-2772-494c-b85a-9f778f782752"
+}
