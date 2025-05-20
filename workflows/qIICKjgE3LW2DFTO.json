@@ -1,0 +1,370 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-26T08:43:57.326Z",
+  "id": "qIICKjgE3LW2DFTO",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Viet lai content",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -20,
+        60
+      ],
+      "id": "035cd15c-269e-4480-8090-460884f0d05a",
+      "name": "Telegram Trigger",
+      "webhookId": "dfa70262-7834-4681-9ed4-0260351dcadf",
+      "credentials": {
+        "telegramApi": {
+          "id": "qDzKXfVP9TVnreR7",
+          "name": "Telegram account TPE Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "fe38a285-79c5-4682-9854-cef7c0ebbf0d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        240,
+        60
+      ],
+      "id": "be99fca5-14f3-490d-b016-c8e3d96536bb",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4d653a71-2a0a-4739-90f7-1886b5e3f77c",
+              "name": "Text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        60
+      ],
+      "id": "ef98d913-689b-45f5-ac23-e95419940ae2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Text }}",
+        "options": {
+          "systemMessage": "Bạn là một chuyên gia content Marketing, hãy viết lại những bài từ đầu vào theo phong cách dưới đây:\nTone of Voice (Giọng văn)\nTự nhiên, gần gũi: Sử dụng ngôn ngữ đời thường, giống như đang trò chuyện với bạn bè hoặc đồng nghiệp. Đưa vào các từ cảm thán như “ôi”, “ạ”, “nhé”, “vâng”, “mời”, “ủa”, “sao kỳ vậy ta”, “huhu”, “kkk” để tăng tính tự nhiên và cảm xúc.\nChân thật, cá nhân hóa: Chia sẻ trải nghiệm cá nhân, đưa ví dụ thực tế, thể hiện quan điểm riêng, kể những câu chuyện nhỏ gắn với đời sống thực tế thay vì chỉ trình bày lý thuyết hoặc thông tin chung chung.\nLinh hoạt, có cảm xúc: Thể hiện rõ thái độ, cảm xúc (vui, buồn, bất ngờ, hoang mang, bối rối...). Đừng ngại bộc lộ sự phân vân, mâu thuẫn nội tâm hoặc “bẻ lái” bất ngờ trong bài viết.\nHài hước, dí dỏm vừa phải: Đan xen chút hài hước, châm biếm, chơi chữ hoặc meme, nhưng phải tự nhiên, không gượng ép. Có thể dùng tiếng lóng, từ viết tắt, icon, emoji một cách ngẫu hứng, không quá chuẩn chỉnh\nWriting Style (Phong cách viết)\nCấu trúc linh hoạt:\nKết hợp câu ngắn, câu dài, câu cảm thán, câu hỏi tu từ, câu bỏ lửng, câu “vấp váp” như khi nói chuyện thật.\nKhông cần quá “đẹp không tì vết” kiểu sách giáo khoa. Đôi khi có thể xuống dòng không hợp lý, thiếu tiêu đề, hoặc đoạn văn liền mạch.\nCó lỗi tự nhiên:\nChèn một số lỗi chính tả nhẹ, lỗi dấu câu, lỗi gõ máy thường gặp (ví dụ: thiếu dấu, dư dấu, viết sai từ phổ biến, lặp từ, dùng từ địa phương). Đôi khi bỏ sót ký tự, hoặc dùng từ ngữ địa phương, từ lóng, tiếng lóng mạng xã hội.\nKhông cần quá “sạch”, có thể để sót markdown, icon, emoji ở vị trí bất ngờ.\nNgôn ngữ đời thường:\nTránh dùng quá nhiều từ học thuật, hàn lâm, cụm từ sáo rỗng kiểu “tối ưu hóa”, “giải pháp toàn diện”, “bền vững”, “nâng tầm”.\nThỉnh thoảng cập nhật trend, meme, hot topic, câu cửa miệng của cộng đồng mạng.\nNhịp điệu tự nhiên:\nĐừng lặp lại cấu trúc câu giống nhau trong nhiều đoạn. Tạo nhịp điệu lên xuống, bất ngờ, có điểm nhấn cảm xúc.\nThể hiện cá tính riêng:\nMỗi bài viết nên có “chất riêng”, không trung tính, vô hồn. Để AI thể hiện cá tính, quan điểm, hoặc thậm chí là sự “vấp váp” như người thật\n\nChú ý: Kết quả trả về cần dùng HTML để phù hợp với Telegram Bot. Dùng các thẻ như <b>, <i>, <u>, <code>, <a href=\"\"> để làm đậm, nghiêng... và tránh dùng ký tự đặc biệt không đúng format HTML.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        720,
+        60
+      ],
+      "id": "21ab7a26-5612-4636-9462-0bb2b29d58b5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.message_id }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        340
+      ],
+      "id": "cc3c7aa3-b6ab-4f49-a416-5aa50238da9e",
+      "name": "Postgres Chat Memory",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        280,
+        340
+      ],
+      "id": "b7ccd50d-eaa3-410e-a7ae-279d0eae3f0f",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aQMSpuVjnMlnQnkL",
+          "name": "Google Gemini(PaLM) Mr.Oanhnt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        1040,
+        320
+      ],
+      "id": "ce27c17f-b5e3-460b-b6d9-6f90f9441156",
+      "name": "Gmail",
+      "webhookId": "39b522d6-2049-43cf-bc59-f58e059d5c22",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1340,
+        60
+      ],
+      "id": "3a852de9-e1a5-4426-a59f-7f994fba5a2b",
+      "name": "Telegram",
+      "webhookId": "ea70594c-58ed-4a26-95f8-60c230795a90",
+      "credentials": {
+        "telegramApi": {
+          "id": "qDzKXfVP9TVnreR7",
+          "name": "Telegram account TPE Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "1",
+        "contextWindowLength": 100
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        660,
+        340
+      ],
+      "id": "fffe707a-06fa-4d4e-a054-5ed03521553d",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "CQ0n1m3WmXNCZqvC",
+          "name": "Redis Upstash"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const cleanedText = item.json.output.replace(/\\*+/g, ''); // Xoá tất cả dấu *\n  return {\n    json: {\n      ...item.json,\n      output: cleanedText\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        60
+      ],
+      "id": "58cf08be-c431-4bde-914a-7eeeeaba1b92",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        880,
+        340
+      ],
+      "id": "0d40a420-1c33-433a-b9c8-e70498941348",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "audMFq0zq8imLUjV",
+          "name": "Google Drive Tranoanh1190"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-04T13:28:00.046Z",
+  "versionId": "d04ba685-eb12-475d-94e0-d4fcce257e74"
+}
