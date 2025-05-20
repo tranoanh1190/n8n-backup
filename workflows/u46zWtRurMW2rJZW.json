@@ -1,0 +1,772 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Phân loại kiểu tin nhắn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kiểm tra có lệnh tạo ảnh": {
+      "main": [
+        [
+          {
+            "node": "Tạo mảng 4 số",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuyển đổi Base64 thành file ảnh": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Phân loại kiểu tin nhắn": {
+      "main": [
+        [
+          {
+            "node": "Kiểm tra có lệnh tạo ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Check Retry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Retry": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Xoá ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trick save json": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuyển biến count thành mảng cho Output": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tạo mảng 4 số": {
+      "main": [
+        [
+          {
+            "node": "Chuyển biến count thành mảng cho Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chuyển đổi Base64 thành file ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Trick save json",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-20T02:27:10.710Z",
+  "id": "u46zWtRurMW2rJZW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Tạo ảnh",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2320,
+        200
+      ],
+      "id": "637f4c21-d305-462e-9a73-8d51f3f87a61",
+      "name": "Telegram Trigger",
+      "webhookId": "f328d2ba-dda8-44a3-a317-c22d9a6644b0",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "84700ced-9d55-4241-86ba-641b7933e0aa",
+              "leftValue": "=",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e95f5bf8-80ce-49af-b7c2-2ea7ee7623d0",
+              "leftValue": "={{ $json.threadId[0] }}",
+              "rightValue": "=",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "855caa72-702f-4143-8a52-6d2a8e54fd38",
+              "leftValue": "={{ $json.data.uidFrom[0] }}",
+              "rightValue": "=",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1840,
+        240
+      ],
+      "id": "ecb9fa5f-324e-4a8c-9830-39431d813a3f",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a7147ae5-c964-4891-bd3b-73662d39c1d2",
+              "leftValue": "={{ $('Zalo User Trigger').item.json.data.content }}",
+              "rightValue": "/image",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1260,
+        200
+      ],
+      "id": "9c9e6f48-a4ca-40d9-b611-0a399b9f1b91",
+      "name": "Kiểm tra có lệnh tạo ảnh"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "={{ \n  [\"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\", \n    \"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\", \n    \"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\", \n    \"AIzaSyDN6S-MMM-gUcCnoDObbF4bW7S7EWoBMF8\"\n  ][Math.floor(Math.random() * 4)] \n}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"generationConfig\": {\n    \"responseModalities\": [\n      \"image\",\n      \"text\"\n    ],\n    \"responseMimeType\": \"text/plain\"\n  },\n  \"contents\": [\n    {\n      \"role\": \"user\",\n      \"parts\": [\n        {\n          \"text\": \"generate image {{ $('Zalo User Trigger').item.json.data?.content.substring(7) }}\"\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        280
+      ],
+      "id": "c0d40f4b-f72e-462a-8cb0-0f8f192b4618",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: $input.first().json.candidates[0].content.parts[0].inlineData.data,\n        mimeType: $input.first().json.candidates[0].content.parts[0].inlineData.mimeType,\n        fileName: 'output.png', // tên file\n      },\n    },\n    json: $('Zalo User Trigger').first().json, // bạn có thể giữ lại dữ liệu json nếu cần\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ],
+      "id": "953b27b7-53a0-4acc-a19e-61553e485f25",
+      "name": "Chuyển đổi Base64 thành file ảnh"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/images-{{ $json.data.ts }}-{{ $('Loop Over Items').item.json.count }}.png",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        660,
+        300
+      ],
+      "id": "7ceaa92b-df44-4cf2-81d3-b3c73681369b",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "command": "=find /home/node -type f -mmin +10 -exec rm {} \\;"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2540,
+        680
+      ],
+      "id": "96dcd3fb-b08a-4e3b-9278-b47eb08b6eb4",
+      "name": "Xoá ảnh"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Zalo User Trigger').item.json.data.msgType }}",
+                    "rightValue": "webchat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "dab6ae22-64bf-4b56-b18a-49d136e59e46"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8aa6ca0d-5151-465d-8576-234294b77876",
+                    "leftValue": "={{ $('Zalo User Trigger').item.json.data.msgType }}",
+                    "rightValue": "chat.sticker",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "sticker"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8bdb716e-0efd-4e9a-9df7-e6fe24aa1963",
+                    "leftValue": "={{ $('Zalo User Trigger').item.json.data.msgType }}",
+                    "rightValue": "chat.photo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "photo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1620,
+        240
+      ],
+      "id": "48e0995a-2171-49e1-99a8-33d84f0412f0",
+      "name": "Phân loại kiểu tin nhắn"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=GeminiRetry:{{ $('Zalo User Trigger').item.json.data.ts }}-{{ $('Loop Over Items').item.json.count }}",
+        "expire": true,
+        "ttl": 300
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        440,
+        100
+      ],
+      "id": "9a65c884-b1e6-480d-b9ab-ecf280a31707",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "4IAYbsCYGoSKqVcv",
+          "name": "Redis account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e8956b78-bdd9-4979-9309-c63f1317adc2",
+              "leftValue": "={{ $json.values()[0] }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        100
+      ],
+      "id": "01b626fc-251a-498b-a096-8754d9c5a827",
+      "name": "Check Retry"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2760,
+        680
+      ],
+      "id": "fca5e57f-5167-40d6-870b-892ee277ee48",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9cb99bcd-7c7f-4f54-85f4-db5ec865f673",
+              "name": "threadId",
+              "value": "=[\"2541917905665255317\"]",
+              "type": "array"
+            },
+            {
+              "id": "35422df4-dee7-4232-bce0-7b4e277286e2",
+              "name": "data.uidFrom",
+              "value": "=[\"359508459204311854\"]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2060,
+        240
+      ],
+      "id": "e87a2a5d-4490-4d46-b58b-3047963fd899",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        0
+      ],
+      "id": "88c8ba35-47ae-4fb0-86ea-84f4a7926e12",
+      "name": "Telegram",
+      "webhookId": "3737f4d2-7020-4f94-843b-1acc89089b0e",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b35b380e-ec2b-4d65-9fdf-c07bc91345f0",
+              "name": "json",
+              "value": "={{ $json }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5c022a3c-4f42-46ba-99a8-455ec781d271",
+      "name": "Trick save json"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "count",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        180
+      ],
+      "id": "e55b5465-79cb-4793-b089-799d8cfc0664",
+      "name": "Chuyển biến count thành mảng cho Output"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38ddf2e3-176e-4a5a-9392-48df66a3dde7",
+              "name": "count",
+              "value": "[1,2,3,4]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -960,
+        180
+      ],
+      "id": "84d3cb8e-e843-42d9-ac0b-4d8194fb1211",
+      "name": "Tạo mảng 4 số"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "99f6d028-013f-479d-8dab-09310fb954eb",
+              "leftValue": "={{ new Array(\"IMAGE_SAFETY\") }}",
+              "rightValue": "={{ $json.candidates[0].finishReason }}",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        200
+      ],
+      "id": "ce99a5b4-43af-43ee-b3ce-03492e5d5c63",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        240
+      ],
+      "id": "fb1db6a0-faa4-4e93-997d-f864430d49fe",
+      "name": "Wait1",
+      "webhookId": "c6bad3ee-e5f9-42a7-8bcb-d21f903287f3"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        480
+      ],
+      "id": "662b5e50-4ead-4f83-864f-bf12aeb6ef56",
+      "name": "Wait",
+      "webhookId": "0feb7fa7-380b-4b23-8758-19ce9e57fd98"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -220,
+        180
+      ],
+      "id": "6d878bf0-edf1-44ba-ad7b-dcdf4eb9a6be",
+      "name": "Loop Over Items"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-20T08:34:28.908Z",
+  "versionId": "7622f4e2-1c5e-42a1-b9b6-dc0b3593ca76"
+}
