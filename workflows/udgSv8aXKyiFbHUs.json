@@ -74,17 +74,6 @@
         ]
       ]
     },
-    "Clear": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Edit Fields2": {
       "main": [
         [
@@ -100,7 +89,7 @@
       "main": [
         [
           {
-            "node": "Create",
+            "node": "Code4",
             "type": "main",
             "index": 0
           }
@@ -138,7 +127,7 @@
       "main": [
         [
           {
-            "node": "Create1",
+            "node": "Code5",
             "type": "main",
             "index": 0
           }
@@ -172,6 +161,17 @@
         [
           {
             "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create1": {
+      "main": [
+        [
+          {
+            "node": "Clear2",
             "type": "main",
             "index": 0
           }
@@ -237,6 +237,28 @@
           }
         ]
       ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "Create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code5": {
+      "main": [
+        [
+          {
+            "node": "Create1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-05-19T04:18:07.654Z",
@@ -257,10 +279,10 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.2,
       "position": [
-        -100,
-        840
+        -3600,
+        -600
       ],
-      "id": "27fcbb95-5a88-4eb0-aa35-7ce85f5564bd",
+      "id": "76881ac9-4b45-4588-86f2-3197dda4a1b7",
       "name": "Telegram Trigger",
       "webhookId": "1134fe1f-5c63-4a41-a9c4-9f8c20159b44",
       "credentials": {
@@ -329,10 +351,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        860,
-        1000
+        -2640,
+        -440
       ],
-      "id": "2dc6ef90-7e60-417d-8b9d-e49ec5dad758",
+      "id": "b8d76eca-8566-40d9-98b1-d7b7c589db9e",
       "name": "Switch"
     },
     {
@@ -354,7 +376,7 @@
             {
               "id": "9cf88ff4-e772-41d6-acb5-a7a401b207c6",
               "name": "image",
-              "value": "={{ $('AI Agent').item.json.output.split(\"image:\")[1] }}",
+              "value": "={{ $('AI Agent').item.json.output.split(\"image:\")[1]}}",
               "type": "string"
             }
           ]
@@ -364,40 +386,41 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1180,
-        1320
+        -2320,
+        -120
       ],
-      "id": "d4986a8b-73f9-4788-801e-e278be65ed0d",
+      "id": "1522716e-bc75-4fee-9c40-2a40c2e843d8",
       "name": "Edit Fields"
     },
     {
       "parameters": {
-        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n  const image = item.json.image || '';\n\n  // Xóa ký tự * và ` bằng regex\n  const cleanedTitle = title.replace(/[*`]+/g, '').trim();\n  const cleanedContent = content.replace(/[*`]+/g, '').trim();\n  const cleanedImage = image.replace(/[*`]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent,\n      image: cleanedImage\n    }\n  };\n});\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1580,
-        660
+        -1920,
+        -780
       ],
-      "id": "029f0aa8-9888-45a9-a7a8-585264511c78",
+      "id": "d1766f41-3cdf-4d62-a224-08eedd308ead",
       "name": "Code1"
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.title }}\n{{ $json.content }}",
+        "text": "={{ $json.title }}\n{{ $json.content }}\n{{ $json.image }}",
+        "hasOutputParser": true,
         "options": {
-          "systemMessage": "=- Bắt buộc chạy vào Clear đầu tiên để xóa dữ liệu trong Google Sheet đi.\nChú ý: \n- Không trả về dưới dạng Json.\n- Trả ra kết quả bằng tiếng Việt\n- Trả ra kết quả dưới dạng Title, Content và image (3 thành phần này cố định về định dạng, không thay đổi, ví dụ: \"image\" thì không được đổi thành \"Image\").\n+ Title: 1 câu tiêu đề  hấp dẫn và thu hút sự chú ý của người đọc, bạn hãy chọn một câu ngắn gọn, dễ hiểu và liên quan đến nội dung chính. \n+ Content: 1 đoạn nội dung chi tiết nói về chủ đề đó, nội dung đầy đủ, kết hợp các icon ở vị trí hợp lý và tránh lạm dụng.\nFormat nội dung cho người dùng dễ nhìn.\nKết hợp thêm các icon để làm bài viết sinh động hơn, tạo cảm giác gần gũi cho người đọc. \nkhông sử dụng các ký tự đặc biệt như dấu \"#\", \"*\".\nBên dưới sẽ có các thẻ được gắn liên quan đến chủ đề và nội dung, khi gắn thẻ hiển thị thẻ màu xanh và người dùng có thể click chuột vào được.Mỗi thẻ xuống dòng cho đẹp và dễ nhìn.\n\n+ image: 1 hình ảnh ở cuối cùng {{ $json.image }}, tách riêng, không liên quan đến content. (Luôn giữ cố định image, không thêm =IMAGE vào phần này).\nChỉnh sửa lại bài viết đó theo các yêu cầu sau:\n {{ $('Telegram Trigger').item.json.message.text }}\n\n(Khi cập nhật dữ liệu vào Sheet Create1, nếu cột \"Image\" có giá trị là một đường link ảnh, hãy tự động chuyển giá trị đó thành công thức=IMAGE(\"url\") trước khi ghi vào Sheet, để hiển thị hình ảnh trực tiếp trong bảng tính. Phải đảm bảo mỗi đường link đều được bao trong công thức =IMAGE(\"...\"). Nếu link đã ở dạng =IMAGE(...) thì giữ nguyên, không thêm thêm lần nữa) => công thức này chỉ áp dụng khi thêm ảnh vào Sheet Create1, không áp dụng vào facebook."
+          "systemMessage": "=Chú ý: \n- không trả dữ liệu về dưới định dạng json.\n- Trả ra kết quả bằng tiếng Việt\n- Trả ra kết quả dưới dạng Title, Content và image (3 thành phần này cố định về định dạng, không thay đổi, ví dụ: \"image\" thì không được đổi thành \"Image\").\n+ Title: 1 câu tiêu đề  hấp dẫn và thu hút sự chú ý của người đọc, bạn hãy chọn một câu ngắn gọn, dễ hiểu và liên quan đến nội dung chính. \n+ Content: 1 đoạn nội dung chi tiết nói về chủ đề đó, nội dung đầy đủ, kết hợp các icon ở vị trí hợp lý và tránh lạm dụng.\nFormat nội dung cho người dùng dễ nhìn.\nKết hợp thêm các icon để làm bài viết sinh động hơn, tạo cảm giác gần gũi cho người đọc. \nkhông sử dụng các ký tự đặc biệt như dấu \"#\", \"*\".\nBên dưới sẽ có các thẻ được gắn liên quan đến chủ đề và nội dung, khi gắn thẻ hiển thị thẻ màu xanh và người dùng có thể click chuột vào được.Mỗi thẻ xuống dòng cho đẹp và dễ nhìn.\n\n+ image: 1 hình ảnh ở cuối cùng {{ $json.image }}, tách riêng, không liên quan đến content. (Luôn giữ cố định image, không thêm =IMAGE vào phần này).\nChỉnh sửa lại bài viết đó theo các yêu cầu sau:\n {{ $('Telegram Trigger').item.json.message.text }}\n\n(Khi cập nhật dữ liệu vào Sheet Create1, nếu cột \"Image\" có giá trị là một đường link ảnh, hãy tự động chuyển giá trị đó thành công thức=IMAGE(\"url\") trước khi ghi vào Sheet, để hiển thị hình ảnh trực tiếp trong bảng tính. Phải đảm bảo mỗi đường link đều được bao trong công thức =IMAGE(\"...\"). Nếu link đã ở dạng =IMAGE(...) thì giữ nguyên, không thêm thêm lần nữa) => công thức này chỉ áp dụng khi thêm ảnh vào Sheet Create1, không áp dụng vào facebook."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        780,
-        1360
+        -2720,
+        -80
       ],
-      "id": "056fac57-81c4-4f8c-bdf7-4d323604173c",
+      "id": "dc60325b-66e2-4af0-b994-5975816f57ad",
       "name": "AI Agent"
     },
     {
@@ -408,51 +431,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        580,
-        1640
+        -2920,
+        220
       ],
-      "id": "1157b469-6114-466e-8bca-ae944f7e1693",
+      "id": "0b969387-c31e-4b49-9b63-eff8628415b0",
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
           "id": "FqUSMVyYsnEe60zX",
           "name": "Gemini api_thanhcong"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "clear",
-        "documentId": {
-          "__rl": true,
-          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
-          "mode": "list",
-          "cachedResultName": "Baiviet_Facebook",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1727576462,
-          "mode": "list",
-          "cachedResultName": "Doc",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=1727576462"
-        },
-        "clear": "specificRows",
-        "startIndex": 2,
-        "rowsToDelete": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number_of_Rows_to_Delete', ``, 'number') }}"
-      },
-      "type": "n8n-nodes-base.googleSheetsTool",
-      "typeVersion": 4.5,
-      "position": [
-        1080,
-        1660
-      ],
-      "id": "e8c37d5d-e211-46c4-ae62-911c9b2480ff",
-      "name": "Clear",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "zMQ8ebEs1buRmmlU",
-          "name": "Google Sheets thanhcong"
         }
       }
     },
@@ -475,7 +462,7 @@
             {
               "id": "d351a32c-b6ab-4395-b906-e59e0b2d5ecb",
               "name": "image",
-              "value": "={{ $('AI Agent1').item.json.output.split('IMAGE(\"')[1].split('\")')[0] }}",
+              "value": "={{ $('AI Agent1').item.json.output.split(\"Image:\")[1]}}",
               "type": "string"
             }
           ]
@@ -485,10 +472,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1360,
-        700
+        -2140,
+        -740
       ],
-      "id": "ec6c4ad1-c43a-4577-8b91-cc7d9ca5e524",
+      "id": "538c77fc-4bdd-4cc8-998a-751c3c814adc",
       "name": "Edit Fields2"
     },
     {
@@ -498,10 +485,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2260,
-        740
+        -1240,
+        -700
       ],
-      "id": "2533b6cf-dce9-440a-a7e7-d4e88326650c",
+      "id": "f06a2bee-468d-4004-b168-af2ac6e9fea0",
       "name": "Code3"
     },
     {
@@ -511,10 +498,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1420,
-        1260
+        -2080,
+        -180
       ],
-      "id": "97e93682-beb5-4982-a86c-46c8df0d9fa0",
+      "id": "6b54d643-84ab-4762-92cb-ddc208877482",
       "name": "Code2"
     },
     {
@@ -541,10 +528,10 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1880,
-        1240
+        -1620,
+        -200
       ],
-      "id": "6d459835-aa2b-4ea7-abe8-c95c382dce42",
+      "id": "7a78785c-2d4f-4586-8b64-a928237d11a5",
       "name": "Facebook Graph API1",
       "credentials": {
         "facebookGraphApi": {
@@ -560,10 +547,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2260,
-        1440
+        -1240,
+        20
       ],
-      "id": "fd83f312-2c87-4104-808e-f3c7e5c02824",
+      "id": "56ab4818-f420-4489-8dee-d64ba80e1975",
       "name": "Code"
     },
     {
@@ -588,8 +575,8 @@
           "value": {
             "Nội dung bài viết": "={{ $('Code1').item.json.content }}",
             "Tiêu đề bài viết": "={{ $('Code1').item.json.title }}",
-            "Ngày đăng": "={{ $json.postDate }}",
-            "STT": "=",
+            "Ngày đăng": "={{ $('Code3').item.json.postDate }}",
+            "STT": "={{ $json.stt }}",
             "Link bài viết": "=https://www.facebook.com/61566487538853/posts/{{ $('Facebook Graph API2').item.json.post_id }}\n",
             "Image": "==IMAGE(\"{{ $('HTTP Request1').item.json.image }}\")"
           },
@@ -660,10 +647,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        2560,
-        760
+        -720,
+        -720
       ],
-      "id": "c5c5a728-192b-4964-a7d3-b73f0ba4a62f",
+      "id": "ee1b3084-f6a2-46ee-bcc9-98703db9fce3",
       "name": "Create",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -696,10 +683,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        2920,
-        780
+        -500,
+        -520
       ],
-      "id": "68573231-6b16-4bd9-a0e3-c8ba8d61db82",
+      "id": "f2d26320-d2ee-4f68-a033-72b45a2c52cb",
       "name": "Clear1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -729,10 +716,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        180,
-        820
+        -3320,
+        -620
       ],
-      "id": "3f6b5f05-8b1d-4594-8cbf-efea10dbb0ff",
+      "id": "d22a794c-9327-4139-bc85-36984573e615",
       "name": "Get",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -760,7 +747,7 @@
             {
               "id": "87c83097-3548-4444-90f7-3e6b762178ee",
               "name": "image",
-              "value": "={{ $json.Content.split('IMAGE(\"')[1]?.split('\")')[0] }}\n\n",
+              "value": "={{ $json.Image }}\n",
               "type": "string"
             }
           ]
@@ -770,10 +757,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        420,
-        820
+        -3080,
+        -620
       ],
-      "id": "c823d448-bfe9-4162-9897-2406c8dd5cb0",
+      "id": "aa665774-76f4-4620-b456-2b1a4f97c38b",
       "name": "Edit Fields3"
     },
     {
@@ -796,10 +783,10 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Nội dung bài viết": "={{ $('Code2').item.json.content }}",
-            "Tiêu đề bài viết": "={{ $('Code2').item.json.title }}",
-            "Ngày đăng": "={{ $json.postDate }}",
-            "STT": "=",
+            "Nội dung bài viết": "={{ $('HTTP Request').item.json.content }}",
+            "Tiêu đề bài viết": "={{ $('HTTP Request').item.json.title }}",
+            "Ngày đăng": "={{ $('Code').item.json.postDate }}",
+            "STT": "={{ $json.stt }}",
             "Link bài viết": "=https://www.facebook.com/61566487538853/posts/{{ $('Facebook Graph API1').item.json.post_id }}\n",
             "Image": "==IMAGE(\"{{ $('HTTP Request').item.json.image }}\")"
           },
@@ -870,10 +857,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        2500,
-        1500
+        -780,
+        80
       ],
-      "id": "9bd3e999-bebf-4c26-9ab0-5b06babb9843",
+      "id": "1897c502-d286-4f73-9044-9b976dbdec62",
       "name": "Create1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -890,10 +877,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1660,
-        1340
+        -1840,
+        -100
       ],
-      "id": "dcce0e77-ff6f-4aa2-b39c-0cea9112505a",
+      "id": "4ef82242-5c35-4755-bb95-35e1b9d2f175",
       "name": "HTTP Request"
     },
     {
@@ -904,16 +891,16 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1780,
-        700
+        -1720,
+        -740
       ],
-      "id": "5e93b09f-5ab5-4eb2-8a48-0bc4d207e123",
+      "id": "eca224bc-c9f6-48ca-a244-65659ce2e59d",
       "name": "HTTP Request1"
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.title }}\n{{ $json.content }}",
+        "text": "={{ $json.title }}\n{{ $json.content }}\n{{ $json.image }}",
         "options": {
           "systemMessage": "=- Không trả về dưới dạng Json.\n- Trả ra kết quả bằng tiếng Việt\n- Trả ra kết quả dưới dạng Title, Content và image\n+ Title: Giữ nguyên. \n+ Content: Giữ nguyên.\n+ image: Giữ nguyên\n\n(Khi cập nhật dữ liệu vào Sheet Create, nếu cột \"Image\" có giá trị là một đường link ảnh, hãy tự động chuyển giá trị đó thành công thức =IMAGE(\"url\") trước khi ghi vào Sheet, để hiển thị hình ảnh trực tiếp trong bảng tính. Phải đảm bảo mỗi đường link đều được bao trong công thức =IMAGE(\"...\"). Nếu link đã ở dạng =IMAGE(...) thì giữ nguyên, không thêm thêm lần nữa) => công thức này chỉ áp dụng khi thêm ảnh vào Sheet Create1, không áp dụng vào facebook."
         }
@@ -921,10 +908,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        1000,
-        580
+        -2500,
+        -860
       ],
-      "id": "d9063783-6459-4da4-9e0c-048f8a82bc27",
+      "id": "30a96a52-804a-497b-a83b-fdb7f8c085ce",
       "name": "AI Agent1"
     },
     {
@@ -951,10 +938,10 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1960,
-        920
+        -1540,
+        -520
       ],
-      "id": "1bd52df0-57ff-4f6c-9bd3-d5ee359822ad",
+      "id": "8ee7eafc-6180-438e-8658-8271e65aa5c7",
       "name": "Facebook Graph API2",
       "credentials": {
         "facebookGraphApi": {
@@ -971,10 +958,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1060,
-        800
+        -2440,
+        -640
       ],
-      "id": "4473702e-2ca3-4ece-9b22-af3e3babfb45",
+      "id": "fee5ee2e-a5c5-4304-b915-463f32f7561c",
       "name": "Google Gemini Chat Model1",
       "credentials": {
         "googlePalmApi": {
@@ -995,16 +982,78 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2780,
-        1160
+        -720,
+        -280
       ],
-      "id": "4499c9ee-2deb-495b-be72-975ef2499cf3",
+      "id": "8a440dc0-27f0-49f0-ba95-c55b2f3d7151",
       "name": "Telegram",
       "webhookId": "8810c246-ea26-4563-90c1-d203810b4229",
       "credentials": {
         "telegramApi": {
           "id": "cm8qGuhTq2sKsAJP",
           "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Đếm dòng có tiêu đề hoặc nội dung\nconst validRows = items.filter(item => {\n  return item.json['Tiêu đề bài viết'] || item.json['Nội dung bài viết'];\n});\n\nreturn [{ json: { stt: validRows.length + 1 } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1020,
+        -800
+      ],
+      "id": "5559fcff-79f2-42ab-b96f-d8a3177f0c27",
+      "name": "Code4"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Đếm dòng có tiêu đề hoặc nội dung\nconst validRows = items.filter(item => {\n  return item.json['Tiêu đề bài viết'] || item.json['Nội dung bài viết'];\n});\n\nreturn [{ json: { stt: validRows.length + 1 } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -980,
+        -100
+      ],
+      "id": "620b79f8-c6c2-47d4-8abb-31c8c01be181",
+      "name": "Code5"
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1727576462,
+          "mode": "list",
+          "cachedResultName": "Doc",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=1727576462"
+        },
+        "clear": "specificRows",
+        "startIndex": 2,
+        "rowsToDelete": 5
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -480,
+        60
+      ],
+      "id": "4eca9fee-52dd-4af7-a0ad-48dfe81fffa7",
+      "name": "Clear2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
         }
       }
     }
@@ -1016,6 +1065,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-20T07:55:02.943Z",
-  "versionId": "0b6349e6-0713-41d5-a926-0c418986ab37"
+  "updatedAt": "2025-05-20T14:42:16.388Z",
+  "versionId": "27d6d407-3744-4e03-b144-ec8490ede091"
 }
