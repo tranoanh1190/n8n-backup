@@ -1,0 +1,821 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Create1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create": {
+      "main": [
+        [
+          {
+            "node": "Clear1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-19T12:05:16.321Z",
+  "id": "ifJaOOSK1EeSkKLF",
+  "isArchived": true,
+  "meta": null,
+  "name": "Test Fb",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1020,
+        40
+      ],
+      "id": "ac7d8b10-35ae-4650-8d57-040d50105556",
+      "name": "Telegram Trigger",
+      "webhookId": "1134fe1f-5c63-4a41-a9c4-9f8c20159b44",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "ok",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "7c2384f5-129f-4a74-8dd2-feead4b8b945"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ok"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6ff1553f-3c8b-4b41-86bf-c9b07cf09542",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "ok",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "not ok"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -540,
+        40
+      ],
+      "id": "3b8ea8cd-1d95-4d4d-9208-daf4948b7dd2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Title:\")[0].split(\"Content\")[0]}}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $('AI Agent').item.json.output.split(\"Content\")[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -100,
+        300
+      ],
+      "id": "d2ca8dd5-58a6-4718-848e-5cb7f6766210",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        140,
+        -80
+      ],
+      "id": "4faedea3-a289-4675-b95a-b352c75c96c6",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v20.0",
+        "node": "me",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $json.title }}\n{{ $json.content }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -60
+      ],
+      "id": "485c7959-1830-417c-a001-ffb594bb0aa9",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "30OmaJU4fBnWvWCI",
+          "name": "Facebook thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Title }}\n{{ $json.Content }}",
+        "options": {
+          "systemMessage": "=Bạn là một AI chuyên về robot, bạn sẽ viết nội dung về robot dành cho mọi người và đăng tải lên Facebook. Bạn hãy viết cho tôi một bài Facebook chia sẽ về chủ đề: {{ $json.Title }} bao gồm nội dung: {{ $json.Content }}\n- Bắt buộc chạy vào Clear để xóa dữ liệu trong Google Sheet đi.\nChú ý: \n- Không trả về dưới dạng Json.\n- Trả ra kết quả bằng tiếng Việt\n- Trả ra kết quả dưới dạng (Title và Content)\n+ Title: 1 câu tiêu đề  hấp dẫn và thu hút sự chú ý của người đọc, bạn hãy chọn một câu ngắn gọn, dễ hiểu và liên quan đến nội dung chính. \n+ Content: 1 đoạn nội dung chi tiết nói về chủ đề đó, nội dung đầy đủ, kết hợp các icon ở vị trí hợp lý và tránh lạm dụng.\nFormat nội dung cho người dùng dễ nhìn.\nKết hợp thêm các icon để làm bài viết sinh động hơn, tạo cảm giác gần gũi cho người đọc. \nkhông sử dụng các ký tự đặc biệt như dấu \"#\", \"*\".\nBên dưới sẽ có các thẻ được gắn liên quan đến chủ đề và nội dung, khi gắn thẻ hiển thị thẻ màu xanh và người dùng có thể click chuột vào được.Mỗi thẻ xuống dòng cho đẹp và dễ nhìn.\nChỉnh sửa lại bài viết đó theo các yêu cầu sau:\n {{ $('Telegram Trigger').item.json.message.text }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -540,
+        360
+      ],
+      "id": "0094c51d-1e1d-41d6-adf4-5797bd561e2f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        620
+      ],
+      "id": "cdbe82c8-f209-4d09-951c-db14f7c55725",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1727576462,
+          "mode": "list",
+          "cachedResultName": "Doc",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=1727576462"
+        },
+        "clear": "specificRows",
+        "startIndex": 2,
+        "rowsToDelete": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number_of_Rows_to_Delete', ``, 'number') }}"
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        -200,
+        640
+      ],
+      "id": "7362f8fb-a0b4-411c-984e-a9ac7b762755",
+      "name": "Clear",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76f24448-3089-43d7-b140-2727d2f2ae60",
+              "name": "title",
+              "value": "={{ $json.Title }}",
+              "type": "string"
+            },
+            {
+              "id": "d4a4a56c-05b5-46cd-8e44-895b892c5f63",
+              "name": "content",
+              "value": "={{ $json.Content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -140,
+        -120
+      ],
+      "id": "9673cbb9-9e02-4104-af96-f7ef3eb31b5f",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const postDate = new Date().toLocaleString(\"vi-VN\", { timeZone: \"Asia/Ho_Chi_Minh\" });\nreturn [\n  {\n    json: {\n      postDate: postDate\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        -120
+      ],
+      "id": "66cde7c4-ef14-49f5-9390-2350aaaf3824",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const title = item.json.title || '';\n  const content = item.json.content || '';\n\n  const cleanedTitle = title.replace(/[*]+/g, '').trim();\n  const cleanedContent = content.replace(/[*]+/g, '').trim();\n\n  return {\n    json: {\n      ...item.json,\n      title: cleanedTitle,\n      content: cleanedContent\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        140,
+        240
+      ],
+      "id": "2a82dafb-29bb-469a-b42d-969a4a010f33",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v20.0",
+        "node": "me",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $json.title }}\n{{ $json.content }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        460,
+        220
+      ],
+      "id": "6208bbe3-42f7-40e1-8c37-7ef11bdfc5c1",
+      "name": "Facebook Graph API1",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "30OmaJU4fBnWvWCI",
+          "name": "Facebook thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const postDate = new Date().toLocaleString(\"vi-VN\", { timeZone: \"Asia/Ho_Chi_Minh\" });\nreturn [\n  {\n    json: {\n      postDate: postDate\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        260
+      ],
+      "id": "5e9b4020-06d7-47f8-a9be-68bed1d772df",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "baiviet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nội dung bài viết": "={{ $('Code1').item.json.content }}",
+            "Tiêu đề bài viết": "={{ $('Code1').item.json.title }}",
+            "Ngày đăng": "={{ $json.postDate }}",
+            "STT": "=",
+            "Link bài viết": "=https://www.facebook.com/profile.php?id=61566487538853{{ $('Facebook Graph API').item.json.id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "STT",
+              "displayName": "STT",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tiêu đề bài viết",
+              "displayName": "Tiêu đề bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nội dung bài viết",
+              "displayName": "Nội dung bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ngày đăng",
+              "displayName": "Ngày đăng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link bài viết",
+              "displayName": "Link bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1260,
+        -120
+      ],
+      "id": "f1cbf3ed-0069-4ecf-b650-d644f082d32e",
+      "name": "Create",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "baiviet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nội dung bài viết": "={{ $('Code2').item.json.content }}",
+            "Tiêu đề bài viết": "={{ $('Code2').item.json.title }}",
+            "Ngày đăng": "={{ $json.postDate }}",
+            "STT": "=",
+            "Link bài viết": "=https://www.facebook.com/profile.php?id=61566487538853{{ $('Facebook Graph API1').item.json.id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "STT",
+              "displayName": "STT",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tiêu đề bài viết",
+              "displayName": "Tiêu đề bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nội dung bài viết",
+              "displayName": "Nội dung bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ngày đăng",
+              "displayName": "Ngày đăng",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link bài viết",
+              "displayName": "Link bài viết",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1060,
+        420
+      ],
+      "id": "bb5aa7bd-4900-45f1-b95b-909b0832f80c",
+      "name": "Create1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1727576462,
+          "mode": "list",
+          "cachedResultName": "Doc",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=1727576462"
+        },
+        "clear": "specificRows",
+        "startIndex": 2,
+        "rowsToDelete": 5
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1480,
+        -100
+      ],
+      "id": "53e4a766-bf67-4510-842b-b5dab30bc14f",
+      "name": "Clear1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU",
+          "mode": "list",
+          "cachedResultName": "Baiviet_Facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1727576462,
+          "mode": "list",
+          "cachedResultName": "Doc",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k5JoC5BwrULBg0VFaGY9uO-GYioiyz4CdnyTaAAgjhU/edit#gid=1727576462"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -800,
+        40
+      ],
+      "id": "27f4312e-e0d5-48b4-8626-4c2170611cba",
+      "name": "Get",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=Bài viết của bạn đã được đăng thành công.\nBạn có thể xem chi tiết bài viết của mình tại đây:\nhttps://www.facebook.com/profile.php?id=61566487538853",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1540,
+        280
+      ],
+      "id": "9601621d-60a3-43d0-a63d-2590371f9bf9",
+      "name": "Telegram",
+      "webhookId": "8d912570-25ad-4c98-9a34-2264e2e1262d",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-19T13:11:11.273Z",
+  "versionId": "675013da-8978-4b2e-b717-4623aab38ce0"
+}
