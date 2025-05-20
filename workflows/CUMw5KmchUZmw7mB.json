@@ -1,0 +1,19 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-04-26T07:42:21.670Z",
+  "id": "CUMw5KmchUZmw7mB",
+  "isArchived": false,
+  "meta": null,
+  "name": "Tu's workflow",
+  "nodes": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-26T07:43:02.749Z",
+  "versionId": "8b03f12f-2fdf-4c7c-980d-3acc0f61a7b1"
+}
