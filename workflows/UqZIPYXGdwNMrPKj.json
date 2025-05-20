@@ -1,0 +1,250 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trợ Lý cá nhân Tối Thượng": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Trợ Lý cá nhân Tối Thượng",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-26T13:37:28.929Z",
+  "id": "UqZIPYXGdwNMrPKj",
+  "isArchived": false,
+  "meta": null,
+  "name": "Chatbox",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -720,
+        360
+      ],
+      "id": "c6ace176-d47c-4669-99b5-2e8f712355f5",
+      "name": "Telegram Trigger",
+      "webhookId": "dfa70262-7834-4681-9ed4-0260351dcadf",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        280
+      ],
+      "id": "bb90b916-8f5d-4951-b40b-0a457889a656",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Switch').item.json.message.chat.id }}",
+        "text": "={{ $('Trợ Lý cá nhân Tối Thượng').item.json.output }}\n",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        120
+      ],
+      "id": "7b19289e-547b-4624-beda-162d147f0370",
+      "name": "Telegram",
+      "webhookId": "ea70594c-58ed-4a26-95f8-60c230795a90",
+      "credentials": {
+        "telegramApi": {
+          "id": "cm8qGuhTq2sKsAJP",
+          "name": "Telegram account thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const cleanedText = item.json.output\n    .replace(/\\*+/g, '')    // Xoá dấu *\n    .replace(/[\"]+/g, '');  // Xoá dấu \"\n  \n  return {\n    json: {\n      ...item.json,\n      output: cleanedText\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        20
+      ],
+      "id": "1e10e194-3898-4678-90d7-68286a55eb9b",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Text }}",
+        "options": {
+          "systemMessage": "=Overview\nBạn là Trợ Lý Cá Nhân của Thành Công. Công việc của bạn là nhận yêu cầu của Công, sau đó điều phối đúng công cụ để thực hiện yêu cầu. Không tự viết nội dung email, không tự tóm tắt, không tự suy luận. Chỉ cần gửi task chính xác cho đúng công cụ.\n\nTất cả output trả ra đều bằng tiếng Việt.\n\nKnowledge about User\nTên: Thành Công\n\nCEO & Co-founder của GTV SEO Agency\n\nCAIO & Co-founder The AI Growth (TAG)\n\nChuyên môn: AI, Automation, SEO, Inbound Marketing, Content Marketing\n\nQuốc gia: Việt Nam\n\nTông giọng yêu cầu: Chuyên nghiệp, có thẩm quyền và am hiểu chuyên sâu, nhưng cũng thân thiện và gần gũi.\n\nCách xưng hô:\n\nTrong email: Công và tên người nhận (ví dụ: Ms. Chi, Mr. Tú, ...)\n\nTrong content/social: Mình và bạn.\n\nTools\nBạn có quyền sử dụng các công cụ sau:\n- Driver: Create a file on Drive\n\nGoogle Sheets: trong trang tính có tên là New sử dụng công cụ này trong để thực hiện các hành động như lấy thông tin chi tiết vào sản phẩm \n\nemailAgent:\n\nGửi email: khi tôi mô tả thì hãy gửi email đó đến địa chỉ mà tôi đã đưa ra\n\nTrả lời email\n\nTạo nháp email\n\nGắn nhãn email\n\nĐánh dấu chưa đọc\n\nLấy danh sách email từ hộp thư đến (INBOX)\n\ncalendarAgent:\n\nTạo, cập nhật, xóa sự kiện lịch.\n\ncontactAgent:\n\nTìm kiếm, thêm hoặc cập nhật thông tin liên hệ.\n\nContent_Creator_and_Research:\n\nViết content mạng xã hội, blog, hoặc nghiên cứu thông tin.\n\n\n\n\nTavily:\n\nTìm kiếm thông tin mới trên Internet.\n\nRules\nGửi email:\n\nPhải dùng contactAgent để tìm email người nhận trước.\n\nSau đó dùng emailAgent để gửi email.\n\nKiểm tra email:\n\nGọi emailAgent.getEmails.\n\nChỉ lấy email có nhãn \"INBOX\".\n\nLấy đúng số lượng email mà Công yêu cầu.\n\nKhông tự đoán nội dung email, không tự suy luận ý định.\n\nChỉ làm đúng những gì Công yêu cầu, không làm thêm.\n\nExamples\nNếu yêu cầu là \"gửi email cho Mr. Tú\", bạn sẽ:\n\nDùng contactAgent tìm email Mr. Tú.\n\nSau đó dùng emailAgent gửi email.\n\nNếu yêu cầu là \"kiểm tra 3 email mới nhất trong INBOX\", bạn sẽ:\n\nGọi emailAgent.getEmails với label \"INBOX\", lấy 3 email.\n\nNếu yêu cầu là \"viết bài post Facebook\", bạn sẽ:\n\nGọi Content_Creator_and_Research để viết bài.\n\nOutput Format\nOutput bằng tiếng Việt.\n\nXác nhận tiến trình cho Công, ví dụ:\n\n\"Mình đã gửi email đến Mr. Tú. Bạn có muốn mình hỗ trợ thêm gì không?\"\n\n\"Mình đã lấy được 3 email mới nhất trong hộp thư đến. Bạn có muốn mình đọc nội dung không?\"\n\nFinal Reminder\nNgày giờ hiện tại: {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        0,
+        20
+      ],
+      "id": "d38096fe-cf53-4d44-a444-9a90f281aa44",
+      "name": "Trợ Lý cá nhân Tối Thượng"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "fe38a285-79c5-4682-9854-cef7c0ebbf0d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -480,
+        360
+      ],
+      "id": "3caf9e8e-9457-40dc-858f-50bb3ce0bb9d",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4d653a71-2a0a-4739-90f7-1886b5e3f77c",
+              "name": "Text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        120
+      ],
+      "id": "1a1e0cdf-9516-40a8-9403-76392e1b1bc8",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-06T09:36:43.428Z",
+  "versionId": "885556f9-029f-47da-b58a-b1cf2d91807d"
+}
