@@ -1,0 +1,347 @@
+{
+  "active": false,
+  "connections": {
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "messenger": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-05T08:00:30.950Z",
+  "id": "CV1rRPIyPFiK5mhd",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "chat message",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        20
+      ],
+      "id": "dc328251-cd82-41e4-a119-add15da35298",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v22.0/477724735421484/messages/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer EAAPQdWkyzRABO2dZBB8NMvZAQx2x0TmfJTnm7RdfUvon7QobZBv4zcMCXBMjclvr9ZCX1QPZArGZBtb3BQmj6Bob5sGM2EYjhcFfnkcI23U0t3lmDQdwlw8FGbynh31XCU5zjttJ0xexGK5Cf2n5xpjFaKE8GLIZCC3OUFwT9yf75T1K2CTchAmNJcFz0C8yCIEhkJ3awABOJXZAsIeCvc08arEb8ekuBSPISNLY7AZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1260,
+        120
+      ],
+      "id": "78556083-aab5-401a-a2f6-6808872a2cfe",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = {\n  \n  \"recipient\":{\n    \"id\":`${$('Edit Fields1').first().json['id khách hàn']}`\n  },\n\n  \"message\":{\n    \"text\":`${$input.first().json.output}`\n  }\n}\n  return{\n    data: body\n  }\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1060,
+        140
+      ],
+      "id": "9b424f27-626d-4cba-b67c-1fc81ce6de4b",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d7d0cf1-e604-4986-b09a-1a124ff3118c",
+              "name": "id khách hàn",
+              "value": "={{ $json.body.entry[0].messaging[0].sender.id }}",
+              "type": "string"
+            },
+            {
+              "id": "9816505b-88b6-46c8-90ce-9711c63430a2",
+              "name": "id page",
+              "value": "={{ $json.body.entry[0].messaging[0].recipient.id }}",
+              "type": "string"
+            },
+            {
+              "id": "d731d7a2-2cb1-44ab-8965-a7520a8770a3",
+              "name": "nội dung tin nhắn",
+              "value": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        320
+      ],
+      "id": "b1a2c2f0-63e3-4979-b4d9-f0b50510276e",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7400cb14-c6a2-4a3c-adfb-dd3d235d5f00",
+              "leftValue": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        180,
+        420
+      ],
+      "id": "ad91d8b8-75c9-40d0-9e9a-df2d52e9939d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json['nội dung tin nhắn'] }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        820,
+        400
+      ],
+      "id": "6733355b-7182-41dc-9835-61fb618c10cf",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        640,
+        360
+      ],
+      "id": "f1938dad-b60b-497c-a17a-0d62b3bbe39e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FqUSMVyYsnEe60zX",
+          "name": "Gemini api_thanhcong"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['nội dung tin nhắn'] }}",
+        "options": {
+          "systemMessage": "You are a professional salesperson and talk cheerfully and humorously. When customers ask questions, say hello, say hello back and look for answers using the Google Sheet FAQ tool. \nAnswering rules: \nAlways answer in Vietnamese. \nKeep the answer clear, concise and straight to the point. \n\nIf the answer is not found in the Google Sheet FAQ, return the text \"this product is temporarily delayed\". \nWhen users send words or adjectives that evaluate the level. \nFor example \"khá ổn\", \"xe ok đó\", ... Then return the text \"Dạ vâng\"."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        700,
+        140
+      ],
+      "id": "6b11cd13-5c32-41a2-8443-797f2a142708",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "59a3312d-02b0-4189-87ac-d62237d9668d",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        240
+      ],
+      "id": "876b8631-32b3-47cf-a695-b7d4d793d3b1",
+      "name": "messenger",
+      "webhookId": "59a3312d-02b0-4189-87ac-d62237d9668d"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "FAQ tool",
+        "documentId": {
+          "__rl": true,
+          "value": "1FBczJCl5v8jxQQjjq-ucLtcO9F3M_OB6IHccAEtd5bQ",
+          "mode": "list",
+          "cachedResultName": "hello",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FBczJCl5v8jxQQjjq-ucLtcO9F3M_OB6IHccAEtd5bQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Trang tính1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FBczJCl5v8jxQQjjq-ucLtcO9F3M_OB6IHccAEtd5bQ/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        960,
+        360
+      ],
+      "id": "1eb6ccaf-433c-44f5-b747-21a1c0662aff",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zMQ8ebEs1buRmmlU",
+          "name": "Google Sheets thanhcong"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "messenger": []
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-06T05:15:02.775Z",
+  "versionId": "3e9bcd22-fbf9-4d08-a9a4-b5fa511b485b"
+}
